@@ -47,7 +47,7 @@ namespace System.Web.NHaml.IO
 
         private static bool IsRuleThatAllowsInlineContent(HamlRuleEnum hamlRule)
         {
-            return hamlRule == HamlRuleEnum.Tag || hamlRule == HamlRuleEnum.DivId || hamlRule == HamlRuleEnum.DivClass;
+            return hamlRule == HamlRuleEnum.Tag || hamlRule == HamlRuleEnum.Filter || hamlRule == HamlRuleEnum.ViewProperty;
         }
 
         private string AddImplicitDivTag(string content)

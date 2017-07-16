@@ -16,7 +16,7 @@ namespace System.Web.NHaml.Parser
                     return new HamlNodeTag(nodeLine);
                 case HamlRuleEnum.HamlComment:
                     return new HamlNodeHamlComment(nodeLine);
-                case HamlRuleEnum.HtmlComment:
+                case HamlRuleEnum.XmlComment:
                     return new HamlNodeHtmlComment(nodeLine);
                 case HamlRuleEnum.Evaluation:
                     return new HamlNodeEval(nodeLine);
@@ -26,6 +26,10 @@ namespace System.Web.NHaml.Parser
                     return new HamlNodeDocType(nodeLine);
                 case HamlRuleEnum.Partial:
                     return new HamlNodePartial(nodeLine);
+                case HamlRuleEnum.ViewProperty:
+                    return new HamlNodeViewProperty(nodeLine);
+                case HamlRuleEnum.Filter:
+                    return new HamlNodeFilter(nodeLine);
                 default:
                     throw new HamlUnknownRuleException(nodeLine.Content, nodeLine.SourceFileLineNo);
             }

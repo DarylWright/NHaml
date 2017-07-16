@@ -5,14 +5,15 @@
         Unknown = 0,
         PlainText,
         Tag,
-        DivId,
-        DivClass,
         DocType,
-        HtmlComment,
+        XmlComment,
         HamlComment,
         Evaluation,
         Code,
         Partial,
-        Document
+        Document,
+        
+        Filter,
+        ViewProperty
     }
 }

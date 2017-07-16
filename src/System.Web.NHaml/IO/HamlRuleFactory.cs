@@ -13,11 +13,6 @@ namespace System.Web.NHaml.IO
                 content = content.Substring(3);
                 return HamlRuleEnum.DocType;
             }
-            if (content.StartsWith("-#"))
-            {
-                content = content.Substring(2);
-                return HamlRuleEnum.HamlComment;
-            }
             if (content.StartsWith("#{"))
             {
                 content = content.Substring(0);
@@ -40,16 +35,16 @@ namespace System.Web.NHaml.IO
             }
             if (content.StartsWith("."))
             {
-                return HamlRuleEnum.DivClass;
+                return HamlRuleEnum.ViewProperty;
             }
             if (content.StartsWith("#"))
             {
-                return HamlRuleEnum.DivId;
+                return HamlRuleEnum.HamlComment;
             }
             if (content.StartsWith("/"))
             {
                 content = content.Substring(1);
-                return HamlRuleEnum.HtmlComment;
+                return HamlRuleEnum.XmlComment;
             }
             if (content.StartsWith("="))
             {
