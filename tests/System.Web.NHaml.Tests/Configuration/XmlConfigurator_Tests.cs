@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.NHaml;
-using System.Web.NHaml.Configuration;
-using System.Web.NHaml.TemplateResolution;
+using NHaml;
+using NHaml.Configuration;
+using NHaml.TemplateResolution;
 using NUnit.Framework;
 using NHaml.Tests.Builders;
 using Moq;

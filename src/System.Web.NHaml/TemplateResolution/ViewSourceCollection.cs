@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace System.Web.NHaml.TemplateResolution
+namespace NHaml.TemplateResolution
 {
     public class ViewSourceCollection : List<ViewSource>
     {

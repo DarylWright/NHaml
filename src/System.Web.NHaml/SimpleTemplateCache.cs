@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace System.Web.NHaml
+namespace NHaml
 {
     public class SimpleTemplateCache : IHamlTemplateCache
     {

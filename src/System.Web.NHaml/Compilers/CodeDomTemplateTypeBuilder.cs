@@ -1,3 +1,4 @@
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -5,9 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web.NHaml.Compilers.Exceptions;
+using NHaml.Compilers.Exceptions;
 
-namespace System.Web.NHaml.Compilers
+namespace NHaml.Compilers
 {
     public abstract class CodeDomTemplateTypeBuilder : ITemplateTypeBuilder
     {

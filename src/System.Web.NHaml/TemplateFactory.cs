@@ -1,7 +1,8 @@
+using System;
 using System.Reflection.Emit;
-using System.Web.NHaml.TemplateBase;
+using NHaml.TemplateBase;
 
-namespace System.Web.NHaml
+namespace NHaml
 {
     [Serializable]
     public class InvalidTemplateTypeException : Exception

@@ -1,4 +1,6 @@
-namespace System.Web.NHaml.Crosscutting
+using System;
+
+namespace NHaml.Crosscutting
 {
     [System.Diagnostics.DebuggerStepThrough]
     public static class Invariant

@@ -1,6 +1,6 @@
-﻿using System.Web.NHaml.Compilers;
-using System.Web.NHaml.Parser.Rules;
-using System.Web.NHaml.Walkers.CodeDom;
+﻿using NHaml.Compilers;
+using NHaml.Parser.Rules;
+using NHaml.Walkers.CodeDom;
 using NUnit.Framework;
 using Moq;
 

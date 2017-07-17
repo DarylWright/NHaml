@@ -1,8 +1,8 @@
-﻿using System.Web.NHaml.IO;
-using System.Web.NHaml.Parser.Exceptions;
-using System.Web.NHaml.Parser.Rules;
+﻿using NHaml.IO;
+using NHaml.Parser.Exceptions;
+using NHaml.Parser.Rules;
 
-namespace System.Web.NHaml.Parser
+namespace NHaml.Parser
 {
     public static class HamlNodeFactory
     {

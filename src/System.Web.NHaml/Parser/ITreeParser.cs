@@ -1,6 +1,6 @@
-﻿using System.Web.NHaml.TemplateResolution;
+﻿using NHaml.TemplateResolution;
 
-namespace System.Web.NHaml.Parser
+namespace NHaml.Parser
 {
     public interface ITreeParser
     {

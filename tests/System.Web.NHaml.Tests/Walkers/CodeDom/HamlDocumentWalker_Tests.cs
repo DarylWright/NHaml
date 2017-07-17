@@ -1,9 +1,9 @@
-﻿using System.Web.NHaml.Compilers;
-using System.Web.NHaml.IO;
-using System.Web.NHaml.Parser;
-using System.Web.NHaml.Parser.Rules;
-using System.Web.NHaml.TemplateBase;
-using System.Web.NHaml.Walkers.CodeDom;
+﻿using NHaml.Compilers;
+using NHaml.IO;
+using NHaml.Parser;
+using NHaml.Parser.Rules;
+using NHaml.TemplateBase;
+using NHaml.Walkers.CodeDom;
 using NUnit.Framework;
 using Moq;
 using NHaml.Tests.Mocks;

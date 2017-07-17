@@ -1,4 +1,4 @@
-﻿namespace System.Web.NHaml.Parser
+﻿namespace NHaml.Parser
 {
     public enum HamlRuleEnum
     {

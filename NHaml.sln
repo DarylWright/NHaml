@@ -20,9 +20,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHaml.Samples.Mvc.CSharp", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HamlSpec", "tests\HamlSpec\HamlSpec.csproj", "{F9164010-CA96-4EE8-834A-FE441BA9E4A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.NHaml.Tests", "tests\System.Web.NHaml.Tests\System.Web.NHaml.Tests.csproj", "{92236FD2-3C06-4487-A6ED-E3E89511665B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHaml.Tests", "tests\System.Web.NHaml.Tests\NHaml.Tests.csproj", "{92236FD2-3C06-4487-A6ED-E3E89511665B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.NHaml", "src\System.Web.NHaml\System.Web.NHaml.csproj", "{9B885FC4-45C0-4526-9253-A799238EDD66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHaml", "src\System.Web.NHaml\NHaml.csproj", "{9B885FC4-45C0-4526-9253-A799238EDD66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.NHaml.IntegrationTests", "tests\System.Web.NHaml.IntegrationTests\System.Web.NHaml.IntegrationTests.csproj", "{67DD89E7-D115-4714-A4F0-27A837D92A56}"
 EndProject

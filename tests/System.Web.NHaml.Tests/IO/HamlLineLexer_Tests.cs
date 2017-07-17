@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using System.Web.NHaml.IO;
+using NHaml.IO;
 using NUnit.Framework;
 
 namespace NHaml.Tests.IO

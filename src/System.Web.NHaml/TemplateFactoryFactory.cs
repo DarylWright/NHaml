@@ -1,13 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Web.NHaml.Compilers;
-using System.Web.NHaml.Parser;
-using System.Web.NHaml.Parser.Rules;
-using System.Web.NHaml.TemplateResolution;
-using System.Web.NHaml.Walkers;
+using NHaml.Compilers;
+using NHaml.Parser;
+using NHaml.Parser.Rules;
+using NHaml.TemplateResolution;
+using NHaml.Walkers;
 
-namespace System.Web.NHaml
+namespace NHaml
 {
     public class TemplateFactoryFactory : ITemplateFactoryFactory
     {

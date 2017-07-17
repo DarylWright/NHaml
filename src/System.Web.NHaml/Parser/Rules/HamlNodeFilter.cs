@@ -1,6 +1,7 @@
-﻿using System.Web.NHaml.IO;
+﻿using System;
+using NHaml.IO;
 
-namespace System.Web.NHaml.Parser.Rules
+namespace NHaml.Parser.Rules
 {
     public class HamlNodeFilter : HamlNode
     {

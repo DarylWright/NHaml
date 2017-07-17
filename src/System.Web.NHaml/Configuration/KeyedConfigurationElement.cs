@@ -1,7 +1,8 @@
 using System.Configuration;
 using System.Security.Permissions;
+using System.Web;
 
-namespace System.Web.NHaml.Configuration
+namespace NHaml.Configuration
 {
     [AspNetHostingPermission( SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal )]
     [AspNetHostingPermission( SecurityAction.LinkDemand, Level = AspNetHostingPermissionLevel.Minimal )]

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace System.Web.NHaml.Compilers
+namespace NHaml.Compilers
 {
     public interface ITemplateFactoryCompiler
     {

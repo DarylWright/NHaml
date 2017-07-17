@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace System.Web.NHaml.TemplateBase
+namespace NHaml.TemplateBase
 {
     public class TypedTemplate<T> : Template
     {

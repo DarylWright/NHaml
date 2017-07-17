@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Web.NHaml.Compilers;
-using System.Web.NHaml.Parser;
+﻿using System;
+using System.Collections.Generic;
+using NHaml.Compilers;
+using NHaml.Parser;
 
-namespace System.Web.NHaml.Walkers.CodeDom
+namespace NHaml.Walkers.CodeDom
 {
     public class HamlDocumentWalker : HamlNodeWalker, IDocumentWalker
     {

@@ -1,4 +1,6 @@
-﻿namespace System.Web.NHaml
+﻿using System;
+
+namespace NHaml
 {
     public interface IHamlTemplateCache
     {

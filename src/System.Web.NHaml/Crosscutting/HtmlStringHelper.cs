@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
-namespace System.Web.NHaml.Crosscutting
+namespace NHaml.Crosscutting
 {
     public static class HtmlStringHelper
     {

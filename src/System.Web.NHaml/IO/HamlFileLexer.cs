@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
-using System.Web.NHaml.Parser.Exceptions;
+using NHaml.Parser.Exceptions;
 
-namespace System.Web.NHaml.IO
+namespace NHaml.IO
 {
     public class HamlFileLexer
     {

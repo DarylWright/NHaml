@@ -1,6 +1,7 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
+using System.CodeDom.Compiler;
 
-namespace System.Web.NHaml.Compilers.Exceptions
+namespace NHaml.Compilers.Exceptions
 {
     [Serializable]
     class CompilerException : Exception

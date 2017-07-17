@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.NHaml.Crosscutting;
+using NHaml.Crosscutting;
 using NUnit.Framework;
 
 namespace NHaml.Tests.Crosscutting

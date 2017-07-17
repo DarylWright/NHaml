@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Web.NHaml.Configuration;
+using NHaml.Configuration;
 using NUnit.Framework;
 
 namespace NHaml.Tests.Configuration

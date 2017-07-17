@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
-namespace System.Web.NHaml.TemplateResolution
+namespace NHaml.TemplateResolution
 {
     public class StreamViewSource : ViewSource
     {

@@ -1,4 +1,6 @@
-﻿namespace System.Web.NHaml.Parser.Exceptions
+﻿using System;
+
+namespace NHaml.Parser.Exceptions
 {
     [Serializable]
     public class HamlUnknownRuleException : Exception

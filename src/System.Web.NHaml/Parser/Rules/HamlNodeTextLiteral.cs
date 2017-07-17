@@ -1,4 +1,4 @@
-﻿namespace System.Web.NHaml.Parser.Rules
+﻿namespace NHaml.Parser.Rules
 {
     public class HamlNodeTextLiteral : HamlNode
     {

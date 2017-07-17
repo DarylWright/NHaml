@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace System.Web.NHaml.Walkers.CodeDom
+namespace NHaml.Walkers.CodeDom
 {
     public class HamlHtmlOptions
     {

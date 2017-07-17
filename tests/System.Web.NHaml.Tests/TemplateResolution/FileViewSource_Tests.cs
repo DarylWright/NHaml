@@ -1,4 +1,4 @@
-﻿using System.Web.NHaml.TemplateResolution;
+﻿using NHaml.TemplateResolution;
 using Moq;
 using NUnit.Framework;
 using System;

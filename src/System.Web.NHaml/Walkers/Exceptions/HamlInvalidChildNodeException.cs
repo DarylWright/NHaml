@@ -1,4 +1,6 @@
-﻿namespace System.Web.NHaml.Walkers.Exceptions
+﻿using System;
+
+namespace NHaml.Walkers.Exceptions
 {
     [Serializable]
     public class HamlInvalidChildNodeException : Exception

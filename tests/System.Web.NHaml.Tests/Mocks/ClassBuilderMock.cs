@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Web.NHaml.Compilers;
-using System.Web.NHaml.Parser;
+using NHaml.Compilers;
+using NHaml.Parser;
 using System.Linq;
-using System.Web.NHaml.Parser.Rules;
+using NHaml.Parser.Rules;
 
 namespace NHaml.Tests.Mocks
 {

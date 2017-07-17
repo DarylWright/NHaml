@@ -1,4 +1,4 @@
-namespace System.Web.NHaml.TemplateResolution
+namespace NHaml.TemplateResolution
 {
     public interface ITemplateContentProvider
     {

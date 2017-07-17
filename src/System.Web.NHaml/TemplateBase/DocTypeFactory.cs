@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace System.Web.NHaml.TemplateBase
+namespace NHaml.TemplateBase
 {
     public static class DocTypeFactory
     {

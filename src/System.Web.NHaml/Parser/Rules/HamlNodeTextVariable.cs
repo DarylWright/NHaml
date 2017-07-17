@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
-namespace System.Web.NHaml.Parser.Rules
+namespace NHaml.Parser.Rules
 {
     public class HamlNodeTextVariable : HamlNode
     {

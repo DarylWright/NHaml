@@ -1,14 +1,15 @@
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.NHaml.Parser;
-using System.Web.NHaml.Parser.Rules;
+using NHaml.Parser;
+using NHaml.Parser.Rules;
 using Microsoft.CSharp;
 
-namespace System.Web.NHaml.Compilers
+namespace NHaml.Compilers
 {
     public class CodeDomClassBuilder : ITemplateClassBuilder
     {

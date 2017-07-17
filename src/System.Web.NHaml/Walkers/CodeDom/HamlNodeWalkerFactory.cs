@@ -1,8 +1,9 @@
-﻿using System.Web.NHaml.Compilers;
-using System.Web.NHaml.Parser.Rules;
-using System.Web.NHaml.Walkers.Exceptions;
+﻿using System;
+using NHaml.Compilers;
+using NHaml.Parser.Rules;
+using NHaml.Walkers.Exceptions;
 
-namespace System.Web.NHaml.Walkers.CodeDom
+namespace NHaml.Walkers.CodeDom
 {
     public static class HamlWalkerFactory
     {

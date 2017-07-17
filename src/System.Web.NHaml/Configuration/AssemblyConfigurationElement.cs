@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace System.Web.NHaml.Configuration
+namespace NHaml.Configuration
 {
     public  class AssemblyConfigurationElement : KeyedConfigurationElement
     {

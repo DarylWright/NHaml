@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.NHaml.Parser.Exceptions;
-using System.Web.NHaml.Parser.Rules;
+using NHaml.Parser.Exceptions;
+using NHaml.Parser.Rules;
 using NUnit.Framework;
 
 namespace NHaml.Tests.Parser.Rules

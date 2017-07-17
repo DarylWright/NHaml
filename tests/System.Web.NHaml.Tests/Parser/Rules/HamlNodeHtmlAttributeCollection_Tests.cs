@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using System.Web.NHaml.Parser.Rules;
+using NHaml.Parser.Rules;
 using NUnit.Framework;
 
 namespace NHaml.Tests.Parser.Rules

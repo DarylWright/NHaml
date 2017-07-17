@@ -1,4 +1,6 @@
-﻿namespace System.Web.NHaml
+﻿using System;
+
+namespace NHaml
 {
     [Serializable]
     public class PartialNotFoundException : Exception

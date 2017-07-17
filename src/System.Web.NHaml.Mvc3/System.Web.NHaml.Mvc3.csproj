@@ -90,13 +90,16 @@
     <CodeAnalysisDictionary Include="Properties\CodeAnalysisDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\System.Web.NHaml\System.Web.NHaml.csproj">
-      <Project>{9B885FC4-45C0-4526-9253-A799238EDD66}</Project>
-      <Name>System.Web.NHaml</Name>
-    </ProjectReference>
+    <None Include="System.Web.NHaml.Mvc3.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="System.Web.NHaml.Mvc3.nuspec" />
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Web.NHaml\System.Web.NHaml.csproj">
+      <Project>{9b885fc4-45c0-4526-9253-a799238edd66}</Project>
+      <Name>System.Web.NHaml</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

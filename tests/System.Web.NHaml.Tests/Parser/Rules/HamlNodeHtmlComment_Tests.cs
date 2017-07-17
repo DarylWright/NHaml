@@ -1,6 +1,6 @@
-﻿using System.Web.NHaml.IO;
-using System.Web.NHaml.Parser;
-using System.Web.NHaml.Parser.Rules;
+﻿using NHaml.IO;
+using NHaml.Parser;
+using NHaml.Parser.Rules;
 using NUnit.Framework;
 
 namespace NHaml.Tests.Parser.Rules

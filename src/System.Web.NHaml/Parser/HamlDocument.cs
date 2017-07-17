@@ -1,6 +1,6 @@
-﻿using System.Web.NHaml.IO;
+﻿using NHaml.IO;
 
-namespace System.Web.NHaml.Parser
+namespace NHaml.Parser
 {
     public class HamlDocument : HamlNode
     {

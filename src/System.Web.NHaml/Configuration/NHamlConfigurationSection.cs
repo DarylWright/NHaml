@@ -1,10 +1,11 @@
+using System;
 using System.Configuration;
 using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace System.Web.NHaml.Configuration
+namespace NHaml.Configuration
 {
 	public class NHamlConfigurationSection : ConfigurationSection
 	{

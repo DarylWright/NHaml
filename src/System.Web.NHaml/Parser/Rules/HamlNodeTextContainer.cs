@@ -1,7 +1,7 @@
-﻿using System.Web.NHaml.IO;
-using System.Web.NHaml.Parser.Exceptions;
+﻿using NHaml.IO;
+using NHaml.Parser.Exceptions;
 
-namespace System.Web.NHaml.Parser.Rules
+namespace NHaml.Parser.Rules
 {
     public class HamlNodeTextContainer : HamlNode
     {

@@ -1,6 +1,7 @@
-﻿using System.CodeDom;
+﻿using System;
+using System.CodeDom;
 
-namespace System.Web.NHaml.Compilers
+namespace NHaml.Compilers
 {
     internal static class CodeDomFluentBuilder
     {

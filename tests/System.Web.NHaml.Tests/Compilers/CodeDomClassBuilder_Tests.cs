@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Web.NHaml.Compilers;
-using System.Web.NHaml.Parser;
-using System.Web.NHaml.Parser.Rules;
-using System.Web.NHaml.TemplateBase;
+using NHaml.Compilers;
+using NHaml.Parser;
+using NHaml.Parser.Rules;
+using NHaml.TemplateBase;
 using NUnit.Framework;
 
 namespace NHaml.Tests.Compilers

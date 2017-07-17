@@ -1,10 +1,11 @@
-﻿using System.Linq;
-using System.Web.NHaml.Compilers;
-using System.Web.NHaml.Crosscutting;
-using System.Web.NHaml.Parser;
-using System.Web.NHaml.Walkers.Exceptions;
+﻿using System;
+using System.Linq;
+using NHaml.Compilers;
+using NHaml.Crosscutting;
+using NHaml.Parser;
+using NHaml.Walkers.Exceptions;
 
-namespace System.Web.NHaml.Walkers.CodeDom
+namespace NHaml.Walkers.CodeDom
 {
     public abstract class HamlNodeWalker
     {

@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Web.NHaml.Crosscutting;
+using NHaml.Crosscutting;
 
-namespace System.Web.NHaml.TemplateResolution
+namespace NHaml.TemplateResolution
 {
     public class FileTemplateContentProvider : ITemplateContentProvider
     {

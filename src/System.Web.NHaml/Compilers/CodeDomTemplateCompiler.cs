@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
-namespace System.Web.NHaml.Compilers
+namespace NHaml.Compilers
 {
     public class CodeDomTemplateCompiler : ITemplateFactoryCompiler
     {
