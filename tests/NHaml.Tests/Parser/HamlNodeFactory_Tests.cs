@@ -14,7 +14,7 @@ namespace NHaml.Tests.Parser
         [TestCase(HamlRuleEnum.PlainText, typeof(HamlNodeTextContainer))]
         [TestCase(HamlRuleEnum.Tag, typeof(HamlNodeTag))]
         [TestCase(HamlRuleEnum.HamlComment, typeof(HamlNodeHamlComment))]
-        [TestCase(HamlRuleEnum.HtmlComment, typeof(HamlNodeHtmlComment))]
+        [TestCase(HamlRuleEnum.XmlComment, typeof(HamlNodeHtmlComment))]
         [TestCase(HamlRuleEnum.Evaluation, typeof(HamlNodeEval))]
         public void GetHamlNode_DifferentHamlLineTypes_ReturnsCorrectHamlNode(HamlRuleEnum rule, Type nodeType)
         {
@@ -24,8 +24,8 @@ namespace NHaml.Tests.Parser
         }
 
         [Test]
-        [TestCase(HamlRuleEnum.DivClass, typeof(HamlNodeTag))]
-        [TestCase(HamlRuleEnum.DivId, typeof(HamlNodeTag))]
+        [TestCase(HamlRuleEnum.ViewProperty, typeof(HamlNodeTag))]
+        //[TestCase(HamlRuleEnum.DivId, typeof(HamlNodeTag))]
         public void GetHamlNode_TagSubTypes_ThrowsHamlUnknownRuleException(HamlRuleEnum rule, Type nodeType)
         {
             var line = new HamlLine("Blah", rule, "", 0);
