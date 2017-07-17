@@ -22,11 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HamlSpec", "tests\HamlSpec\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHaml.Tests", "tests\System.Web.NHaml.Tests\NHaml.Tests.csproj", "{92236FD2-3C06-4487-A6ED-E3E89511665B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHaml", "src\System.Web.NHaml\NHaml.csproj", "{9B885FC4-45C0-4526-9253-A799238EDD66}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.NHaml.IntegrationTests", "tests\System.Web.NHaml.IntegrationTests\System.Web.NHaml.IntegrationTests.csproj", "{67DD89E7-D115-4714-A4F0-27A837D92A56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Web.NHaml.Mvc3.Tests", "tests\System.Web.NHaml.Mvc3.Tests\System.Web.NHaml.Mvc3.Tests.csproj", "{477CC932-ACC5-4F6A-93D1-F44BE2A11D2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHaml", "src\NHaml\NHaml.csproj", "{9B885FC4-45C0-4526-9253-A799238EDD66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,12 +56,6 @@ Global
 		{92236FD2-3C06-4487-A6ED-E3E89511665B}.Profiled|Any CPU.ActiveCfg = Profiled|Any CPU
 		{92236FD2-3C06-4487-A6ED-E3E89511665B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92236FD2-3C06-4487-A6ED-E3E89511665B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B885FC4-45C0-4526-9253-A799238EDD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B885FC4-45C0-4526-9253-A799238EDD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B885FC4-45C0-4526-9253-A799238EDD66}.Profiled|Any CPU.ActiveCfg = Profiled|Any CPU
-		{9B885FC4-45C0-4526-9253-A799238EDD66}.Profiled|Any CPU.Build.0 = Profiled|Any CPU
-		{9B885FC4-45C0-4526-9253-A799238EDD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B885FC4-45C0-4526-9253-A799238EDD66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67DD89E7-D115-4714-A4F0-27A837D92A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67DD89E7-D115-4714-A4F0-27A837D92A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67DD89E7-D115-4714-A4F0-27A837D92A56}.Profiled|Any CPU.ActiveCfg = Profiled|Any CPU
@@ -73,6 +67,12 @@ Global
 		{477CC932-ACC5-4F6A-93D1-F44BE2A11D2C}.Profiled|Any CPU.Build.0 = Release|Any CPU
 		{477CC932-ACC5-4F6A-93D1-F44BE2A11D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{477CC932-ACC5-4F6A-93D1-F44BE2A11D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B885FC4-45C0-4526-9253-A799238EDD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B885FC4-45C0-4526-9253-A799238EDD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B885FC4-45C0-4526-9253-A799238EDD66}.Profiled|Any CPU.ActiveCfg = Profiled|Any CPU
+		{9B885FC4-45C0-4526-9253-A799238EDD66}.Profiled|Any CPU.Build.0 = Profiled|Any CPU
+		{9B885FC4-45C0-4526-9253-A799238EDD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B885FC4-45C0-4526-9253-A799238EDD66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
