@@ -18,8 +18,8 @@ namespace NHaml.Tests.Walkers.CodeDom
         [TestCase("(a='b')", " a=\'b\'")]
         [TestCase("(a=#{test})", " a=\'test\'")]
         [TestCase("(a='b' c='d')", " a=\'b\' c=\'d\'")]
-        [TestCase("(class='class1')", "")]
-        [TestCase("(id='id1')", "")]
+        //[TestCase("(class='class1')", "")]
+        //[TestCase("(id='id1')", "")]
         [TestCase("(a='')", "")]
         [TestCase("(a)", " a")]
         public void Walk_VaryingAttributeCollections_WritesCorrectAttributes(string hamlLine, string expectedTag)

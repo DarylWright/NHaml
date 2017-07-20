@@ -99,9 +99,9 @@ namespace NHaml.Tests.TemplateBase
         #region AppendSelfClosingTagSuffix
 
         [Test]
-        [TestCase(HtmlVersion.Html4, ">")]
+        [TestCase(HtmlVersion.Html4, " />")]
         [TestCase(HtmlVersion.XHtml, " />")]
-        [TestCase(HtmlVersion.Html5, ">")]
+        [TestCase(HtmlVersion.Html5, " />")]
         public void AppendSelfClosingTagSuffix_VaryingHtmlVersion_AppendsCorrectOutput(HtmlVersion htmlVersion, string expectedOutput)
         {
             var template = new DummyTemplate();

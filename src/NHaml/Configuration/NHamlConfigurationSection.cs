@@ -29,14 +29,9 @@ namespace NHaml.Configuration
         const string ReferencedAssembliesElement = "assemblies";
         [ConfigurationProperty(ReferencedAssembliesElement)]
         public ConfigurationCollection<AssemblyConfigurationElement> ReferencedAssemblies
-        {
-            get
-            {
-                return (ConfigurationCollection<AssemblyConfigurationElement>)base[ReferencedAssembliesElement];
-            }
-        }
+            => (ConfigurationCollection<AssemblyConfigurationElement>)base[ReferencedAssembliesElement];
 
-        public IEnumerable<string> ReferencedAssembliesList
+	    public IEnumerable<string> ReferencedAssembliesList
         {
             get
             {
@@ -54,7 +49,8 @@ namespace NHaml.Configuration
             }
             catch (Exception exception)
             {
-                var message = string.Format("Could not load Assembly '{0}'.Did you forget to fully qualify it? For example 'System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'", assemblyName);
+                var message =
+                    $"Could not load Assembly '{assemblyName}'.Did you forget to fully qualify it? For example 'System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'";
                 throw new Exception(message, exception);
             }
         }
@@ -62,19 +58,13 @@ namespace NHaml.Configuration
         const string ImportsElement = "imports";
         [ConfigurationProperty(ImportsElement)]
         private ConfigurationCollection<ImportConfigurationElement> Imports
-        {
-            get {
-                return (ConfigurationCollection<ImportConfigurationElement>)base[ImportsElement];
-            }
-        }
+            => (ConfigurationCollection<ImportConfigurationElement>)base[ImportsElement];
 
-        public IEnumerable<string> ImportsList
+	    public IEnumerable<string> ImportsList
         {
             get
             {
-                return (Imports != null)
-                    ? Imports.Select(x => x.Name)
-                    : new List<string>();
+                return Imports?.Select(x => x.Name) ?? new List<string>();
             }
         }
 

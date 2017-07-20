@@ -24,8 +24,8 @@ namespace NHaml.Tests.Walkers.CodeDom
 
         [Test]
         [TestCase("p", "<p></p>")]
-        [TestCase("p#id", "<p id='id'></p>")]
-        [TestCase("p.class", "<p class='class'></p>")]
+        //[TestCase("p#id", "<p id='id'></p>")]
+        //[TestCase("p.class", "<p class='class'></p>")]
         [TestCase("ns:id", "<ns:id></ns:id>")]
         public void Walk_NonSelfClosingTags_AppendsCorrectTag(string templateLine, string expectedOutput)
         {
