@@ -11,12 +11,12 @@ namespace NHaml.Walkers.CodeDom
         {
             if (nodeType == typeof(HamlNodeTagId)
                 || nodeType == typeof(HamlNodeTagClass)
-                || nodeType == typeof(HamlNodeHtmlAttributeCollection)) return null;
+                || nodeType == typeof(HamlNodeXmlAttributeCollection)) return null;
             if (nodeType == typeof(HamlNodeTextContainer))
                 return new HamlNodeTextContainerWalker(classBuilder, options);
             if (nodeType == typeof(HamlNodeTag))
                 return new HamlNodeTagWalker(classBuilder, options);
-            if (nodeType == typeof(HamlNodeHtmlComment))
+            if (nodeType == typeof(HamlNodeXmlComment))
                 return new HamlNodeHtmlCommentWalker(classBuilder, options);
             if (nodeType == typeof(HamlNodeHamlComment))
                 return new HamlNodeHamlCommentWalker(classBuilder, options);

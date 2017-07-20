@@ -6,9 +6,6 @@
             : base(sourceLineNum, content)
         { }
 
-        protected override bool IsContentGeneratingTag
-        {
-            get { return true; }
-        }
+        protected override bool IsContentGeneratingTag => true;
     }
 }

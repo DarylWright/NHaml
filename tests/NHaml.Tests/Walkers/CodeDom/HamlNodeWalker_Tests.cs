@@ -55,7 +55,7 @@ namespace NHaml.Tests.Walkers.CodeDom
         {
             const string comment = "test";
             var document = HamlDocumentBuilder.Create("",
-                new HamlNodeHtmlComment(new HamlLine(comment, HamlRuleEnum.XmlComment, "", 0)));
+                new HamlNodeXmlComment(new HamlLine(comment, HamlRuleEnum.XmlComment, "", 0)));
 
             _walker.Walk(document);
 

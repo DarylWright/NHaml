@@ -11,10 +11,7 @@ namespace NHaml.Parser.Rules
             ParseFragments(nodeLine.Content);
         }
 
-        protected override bool IsContentGeneratingTag
-        {
-            get { return true; }
-        }
+        protected override bool IsContentGeneratingTag => true;
 
         public HamlNodeTextContainer(int sourceFileLineNo, string content)
             : base(sourceFileLineNo, content)
@@ -27,43 +24,48 @@ namespace NHaml.Parser.Rules
 
         private void ParseFragments(string content)
         {
-            int index = 0;
+            var index = 0;
+
             while (index < content.Length)
             {
                 var node = GetNextNode(content, ref index);
+
                 AddChild(node);
             }
         }
 
         private HamlNode GetNextNode(string content, ref int index)
         {
-            bool isInTag = IsTagToken(content, index);
-            bool isEscaped = false;
+            var isInTag = IsTagToken(content, index);
+            var isEscaped = false;
 
-            string result = string.Empty;
+            var result = string.Empty;
 
             for (; index < content.Length; index++)
             {
                 if (isInTag)
                 {
                     result += content[index];
-                    if (IsEndTagToken(content, index))
-                    {
-                        index++;
-                        return (result.Length > 3)
-                            ? new HamlNodeTextVariable(SourceFileLineNum, result)
-                            : (HamlNode)new HamlNodeTextLiteral(SourceFileLineNum, result);
-                    }
+
+                    if (!IsEndTagToken(content, index)) continue;
+
+                    index++;
+
+                    return (result.Length > 3)
+                        ? new HamlNodeTextVariable(SourceFileLineNum, result)
+                        : (HamlNode)new HamlNodeTextLiteral(SourceFileLineNum, result);
                 }
                 else if (IsTagToken(content, index))
                 {
                     if (isEscaped == false)
                         return new HamlNodeTextLiteral(SourceFileLineNum, result);
+
                     result = RemoveEscapeCharacter(result) + content[index];
                 }
                 else
                 {
                     result += content[index];
+
                     if (IsEscapeToken(content, index))
                     {
                         if (isEscaped) result = RemoveEscapeCharacter(result);

@@ -39,6 +39,7 @@ namespace NHaml.IO
             }
             if (content.StartsWith("#"))
             {
+                content = content.Substring(1);
                 return HamlRuleEnum.HamlComment;
             }
             if (content.StartsWith("/"))

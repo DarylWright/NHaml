@@ -14,7 +14,7 @@ namespace NHaml.Tests.Parser.Rules
         public void Constructor_ValidAttributeStrings_AttributeCollectionContainsCorrectAttributeCount(
             string attributeString, int expectedAttributeCount)
         {
-            var tag = new HamlNodeHtmlAttributeCollection(0, attributeString);
+            var tag = new HamlNodeXmlAttributeCollection(0, attributeString);
 
             Assert.That(tag.Children.Count(), Is.EqualTo(expectedAttributeCount));
         }
@@ -27,7 +27,7 @@ namespace NHaml.Tests.Parser.Rules
         public void Constructor_ValidAttributeStrings_AttributeCollectionContainsCorrectAttributes(
             string attributeString, string expectedFirstAttribute)
         {
-            var tag = new HamlNodeHtmlAttributeCollection(0, attributeString);
+            var tag = new HamlNodeXmlAttributeCollection(0, attributeString);
 
             Assert.That(tag.Children.First().Content, Is.EqualTo(expectedFirstAttribute));
         }
@@ -36,9 +36,9 @@ namespace NHaml.Tests.Parser.Rules
         public void Constructor_MixedBrackets_ParsesCorrectly(
             string attributeString, string expectedName, string expectedValue)
         {
-            var tag = new HamlNodeHtmlAttributeCollection(0, attributeString);
+            var tag = new HamlNodeXmlAttributeCollection(0, attributeString);
 
-            var firstChild = (HamlNodeHtmlAttribute)tag.Children.First();
+            var firstChild = (HamlNodeXmlAttribute)tag.Children.First();
             Assert.That(firstChild.Name, Is.EqualTo(expectedName));
             Assert.That(firstChild.Children.First().Content, Is.EqualTo(expectedValue));
         }
@@ -50,9 +50,9 @@ namespace NHaml.Tests.Parser.Rules
         public void Constructor_CommaSeparatedAttributes_ParsesCorrectly(
             string attributeString, string expectedName, string expectedValue)
         {
-            var tag = new HamlNodeHtmlAttributeCollection(0, attributeString);
+            var tag = new HamlNodeXmlAttributeCollection(0, attributeString);
 
-            var firstChild = (HamlNodeHtmlAttribute)tag.Children.First();
+            var firstChild = (HamlNodeXmlAttribute)tag.Children.First();
             Assert.That(firstChild.Name, Is.EqualTo(expectedName));
             Assert.That(firstChild.Children.First().Content, Is.EqualTo(expectedValue));
         }

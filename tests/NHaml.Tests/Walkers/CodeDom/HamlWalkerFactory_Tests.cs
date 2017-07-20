@@ -14,7 +14,7 @@ namespace NHaml.Tests.Walkers.CodeDom
         [Test]
         [TestCase(typeof(HamlNodeTextContainer), typeof(HamlNodeTextContainerWalker))]
         [TestCase(typeof(HamlNodeTag), typeof(HamlNodeTagWalker))]
-        [TestCase(typeof(HamlNodeHtmlComment), typeof(HamlNodeHtmlCommentWalker))]
+        [TestCase(typeof(HamlNodeXmlComment), typeof(HamlNodeHtmlCommentWalker))]
         [TestCase(typeof(HamlNodeHamlComment), typeof(HamlNodeHamlCommentWalker))]
         [TestCase(typeof(HamlNodeEval), typeof(HamlNodeEvalWalker))]
         [TestCase(typeof(HamlNodeTextLiteral), typeof(HamlNodeTextLiteralWalker))]

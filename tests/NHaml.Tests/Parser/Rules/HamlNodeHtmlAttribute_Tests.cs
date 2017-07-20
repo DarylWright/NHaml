@@ -16,7 +16,7 @@ namespace NHaml.Tests.Parser.Rules
         [TestCase("a", "a", "")]
         public void Constructor_NormalUse_GeneratesCorrectNameValuePair(string input, string name, string value)
         {
-            var node = new HamlNodeHtmlAttribute(0, input);
+            var node = new HamlNodeXmlAttribute(0, input);
             Assert.That(node.Name, Is.EqualTo(name));
             if (string.IsNullOrEmpty(value))
                 Assert.That(node.Children, Is.Empty);
@@ -28,7 +28,7 @@ namespace NHaml.Tests.Parser.Rules
         [Test]
         public void Constructor_NormalUse_RepresentsValueAsTextContainer()
         {
-            var node = new HamlNodeHtmlAttribute(0, "a='b'");
+            var node = new HamlNodeXmlAttribute(0, "a='b'");
             Assert.That(node.Children.First(), Is.InstanceOf<HamlNodeTextContainer>());
         }
 
@@ -38,7 +38,7 @@ namespace NHaml.Tests.Parser.Rules
         public void Constructor_ValueWithAndWithoutQuotes_GeneratesCorrectContent(
             string nodeText, string expectedContent, Type expectedType)
         {
-            var node = new HamlNodeHtmlAttribute(0, nodeText);
+            var node = new HamlNodeXmlAttribute(0, nodeText);
             Assert.That(node.Children.First().Children.First(), Is.InstanceOf(expectedType));
             Assert.That(node.Children.First().Children.First().Content, Is.EqualTo(expectedContent));
         }
@@ -46,14 +46,14 @@ namespace NHaml.Tests.Parser.Rules
         [Test]
         public void Constructor_ValueWithoutQuotes_ConvertsValueToVariable()
         {
-            var node = new HamlNodeHtmlAttribute(0, "a=#{b}");
+            var node = new HamlNodeXmlAttribute(0, "a=#{b}");
             Assert.That(node.Children.First().Children.First(), Is.InstanceOf<HamlNodeTextVariable>());
             Assert.That(node.Children.First().Children.First().Content, Is.EqualTo("#{b}"));
         }
 
         public void Constructor_MalformedAttribute_ThrowsException()
         {
-            Assert.Throws<HamlMalformedTagException>(() => new HamlNodeHtmlAttribute(0, "=b"));
+            Assert.Throws<HamlMalformedTagException>(() => new HamlNodeXmlAttribute(0, "=b"));
 
         }
 
@@ -64,7 +64,7 @@ namespace NHaml.Tests.Parser.Rules
         public void Constructor_ValidAttributeStrings_ExtractsQuoteCharCorrectly(
             string attributeString, char expectedQuoteChar)
         {
-            var tag = new HamlNodeHtmlAttribute(0, attributeString);
+            var tag = new HamlNodeXmlAttribute(0, attributeString);
 
             Assert.That(tag.QuoteChar, Is.EqualTo(expectedQuoteChar));
         }

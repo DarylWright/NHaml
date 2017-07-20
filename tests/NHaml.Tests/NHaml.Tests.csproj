@@ -69,6 +69,7 @@
     <Compile Include="Builders\ViewSourceBuilder.cs" />
     <Compile Include="Compilers\CodeDomClassBuilder_Tests.cs" />
     <Compile Include="Configuration\NHamlConfigurationSection_Tests.cs" />
+    <Compile Include="Crosscutting\HtmlStringHelper_Tests.cs" />
     <Compile Include="Crosscutting\Invariant_Tests.cs" />
     <Compile Include="IO\HamlLineLexer_Tests.cs" />
     <Compile Include="IO\HamlRuleFactory_Tests.cs" />

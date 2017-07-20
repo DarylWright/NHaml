@@ -47,8 +47,8 @@ namespace NHaml.Walkers.CodeDom
 
         private static IList<HamlNodeTextContainer> GetClassValues(HamlNodeTag nodeTag)
         {
-            var classValues = (from collection in nodeTag.Children.OfType<HamlNodeHtmlAttributeCollection>()
-                               from attr in collection.Children.OfType<HamlNodeHtmlAttribute>()
+            var classValues = (from collection in nodeTag.Children.OfType<HamlNodeXmlAttributeCollection>()
+                               from attr in collection.Children.OfType<HamlNodeXmlAttribute>()
                                where attr.Name == "class"
                                from attrFragment in attr.Children
                                select (HamlNodeTextContainer)attrFragment).ToList();
@@ -79,8 +79,8 @@ namespace NHaml.Walkers.CodeDom
 
         private static IList<HamlNodeTextContainer> GetIdValues(HamlNodeTag nodeTag)
         {
-            var idValues = (from collection in nodeTag.Children.OfType<HamlNodeHtmlAttributeCollection>()
-                            from attr in collection.Children.OfType<HamlNodeHtmlAttribute>()
+            var idValues = (from collection in nodeTag.Children.OfType<HamlNodeXmlAttributeCollection>()
+                            from attr in collection.Children.OfType<HamlNodeXmlAttribute>()
                             where attr.Name == "id"
                             from attrFragment in attr.Children
                             select (HamlNodeTextContainer)attrFragment).ToList();
@@ -106,7 +106,7 @@ namespace NHaml.Walkers.CodeDom
 
         private void WalkHtmlStyleAttributes(HamlNodeTag nodeTag)
         {
-            var attributeTags = nodeTag.Children.Where(x => x.GetType() == typeof(HamlNodeHtmlAttributeCollection));
+            var attributeTags = nodeTag.Children.Where(x => x.GetType() == typeof(HamlNodeXmlAttributeCollection));
             foreach (var child in attributeTags)
             {
                 new HamlNodeHtmlAttributeCollectionWalker(ClassBuilder, Options)

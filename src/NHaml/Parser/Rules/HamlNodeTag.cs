@@ -1,4 +1,5 @@
-﻿using NHaml.Crosscutting;
+﻿using System;
+using NHaml.Crosscutting;
 using NHaml.Parser.Exceptions;
 
 namespace NHaml.Parser.Rules
@@ -10,10 +11,6 @@ namespace NHaml.Parser.Rules
 
     public class HamlNodeTag : HamlNode
     {
-        private string _tagName = string.Empty;
-        private string _namespace = string.Empty;
-        private WhitespaceRemoval _whitespaceRemoval = WhitespaceRemoval.None;
-
         public HamlNodeTag(IO.HamlLine nodeLine)
             : base(nodeLine)
         {
@@ -21,41 +18,36 @@ namespace NHaml.Parser.Rules
             int pos = 0;
 
             SetNamespaceAndTagName(nodeLine.Content, ref pos);
-            ParseClassAndIdNodes(nodeLine.Content, ref pos);
+            ParseViewPropertyNodes(nodeLine.Content, ref pos);
             ParseAttributes(nodeLine.Content, ref pos);
             ParseSpecialCharacters(nodeLine.Content, ref pos);
             HandleInlineContent(nodeLine.Content, ref pos);
         }
 
-        protected override bool IsContentGeneratingTag
-        {
-            get { return true; }
-        }
+        protected override bool IsContentGeneratingTag => true;
 
         private void SetNamespaceAndTagName(string content, ref int pos)
         {
-            _tagName = GetTagName(content, ref pos);
+            TagName = GetTagName(content, ref pos);
             
             if (pos < content.Length
                 && content[pos] == ':'
                 && IsSelfClosing == false)
             {
                 pos++;
-                _namespace = _tagName;
-                _tagName = GetTagName(content, ref pos);
+                Namespace = TagName;
+                TagName = GetTagName(content, ref pos);
             }
         }
 
-        private void ParseClassAndIdNodes(string content, ref int pos)
+        private void ParseViewPropertyNodes(string content, ref int pos)
         {
             while (pos < content.Length)
             {
-                if (content[pos] == '#')
-                    ParseTagIdNode(content, ref pos);
-                else if (content[pos] == '.')
-                    ParseClassNode(content, ref pos);
+                if (content[pos] == '.')
+                    ParseViewPropertyNode(content, ref pos);
                 else
-                    break;
+                    return;
             }
         }
 
@@ -63,15 +55,16 @@ namespace NHaml.Parser.Rules
         {
             if (pos >= content.Length) return;
 
-            char attributeEndChar = HtmlStringHelper.GetAttributeTerminatingChar(content[pos]);
+            var attributeEndChar = HtmlStringHelper.GetAttributeTerminatingChar(content[pos]);
+
             if (attributeEndChar != '\0')
             {
-                string attributes = HtmlStringHelper.ExtractTokenFromTagString(content, ref pos,
+                string attributes = HtmlStringHelper.GetNextTagAttributeToken(content, ref pos,
                                                                                new[] {attributeEndChar});
                 if (attributes[attributes.Length - 1] != attributeEndChar)
                     throw new HamlMalformedTagException(
                         "Malformed HTML Attributes collection \"" + attributes + "\".", SourceFileLineNum);
-                AddChild(new HamlNodeHtmlAttributeCollection(SourceFileLineNum, attributes));
+                AddChild(new HamlNodeXmlAttributeCollection(SourceFileLineNum, attributes));
 
                 pos++;
             }
@@ -79,7 +72,7 @@ namespace NHaml.Parser.Rules
 
         private void ParseSpecialCharacters(string content, ref int pos)
         {
-            _whitespaceRemoval = WhitespaceRemoval.None;
+            WhitespaceRemoval = WhitespaceRemoval.None;
             IsSelfClosing = false;
 
             while (pos < content.Length)
@@ -93,17 +86,17 @@ namespace NHaml.Parser.Rules
 
         private bool ParseWhitespaceRemoval(string content, ref int pos)
         {
-            if (_whitespaceRemoval != WhitespaceRemoval.None)
+            if (WhitespaceRemoval != WhitespaceRemoval.None)
                 return false;
 
             switch (content[pos])
             {
                 case '>':
-                    _whitespaceRemoval = WhitespaceRemoval.Surrounding;
+                    WhitespaceRemoval = WhitespaceRemoval.Surrounding;
                     pos++;
                     return true;
                 case '<':
-                    _whitespaceRemoval = WhitespaceRemoval.Internal;
+                    WhitespaceRemoval = WhitespaceRemoval.Internal;
                     pos++;
                     return true;
             }
@@ -124,34 +117,27 @@ namespace NHaml.Parser.Rules
         {
             if (pos >= content.Length) return;
 
-            string contentLine = content.Substring(pos).TrimStart();
+            var contentLine = content.Substring(pos).TrimStart();
+
             AddChild(new HamlNodeTextContainer(SourceFileLineNum, contentLine));
         }
 
-        public string TagName
-        {
-            get { return _tagName; }
-        }
+        public string TagName { get; private set; } = string.Empty;
 
         public bool IsSelfClosing { get; private set; }
 
-        public WhitespaceRemoval WhitespaceRemoval
-        {
-            get { return _whitespaceRemoval; }
-        }
+        public WhitespaceRemoval WhitespaceRemoval { get; private set; } = WhitespaceRemoval.None;
 
-        public string Namespace
-        {
-            get { return _namespace; }
-        }
+        public string Namespace { get; private set; } = string.Empty;
 
         private string GetTagName(string content, ref int pos)
         {
-            string result = GetHtmlToken(content, ref pos);
+            var result = GetHtmlToken(content, ref pos);
 
             return string.IsNullOrEmpty(result) ? "div" : result;
         }
 
+        [Obsolete("Id tags are not used in XAML")]
         private void ParseTagIdNode(string content, ref int pos)
         {
             pos++;
@@ -160,14 +146,15 @@ namespace NHaml.Parser.Rules
             AddChild(newTag);
         }
 
-        private void ParseClassNode(string content, ref int pos)
+        private void ParseViewPropertyNode(string content, ref int pos)
         {
             pos++;
-            string className = GetHtmlToken(content, ref pos);
-            var newTag = new HamlNodeTagClass(SourceFileLineNum, className);
+            //TODO: Don't use GetHtmlToken to determine a valid name syntax for view properties.
+            var propertyName = GetHtmlToken(content, ref pos);
+            var newTag = new HamlNodeViewProperty(SourceFileLineNum, propertyName);
             AddChild(newTag);
         }
-
+        
         private string GetHtmlToken(string content, ref int pos)
         {
             int startIndex = pos;
@@ -184,9 +171,9 @@ namespace NHaml.Parser.Rules
         public string NamespaceQualifiedTagName {
             get
             {
-                return string.IsNullOrEmpty(_namespace)
-                    ? _tagName
-                    : _namespace + ":" + _tagName;
+                return string.IsNullOrEmpty(Namespace)
+                    ? TagName
+                    : Namespace + ":" + TagName;
             }
         }
     }

@@ -95,7 +95,7 @@ namespace NHaml.Tests.Parser.Rules
             const string templateLine = "p(a='b')";
             var tag = new HamlNodeTag(new HamlLine(templateLine, HamlRuleEnum.Tag, "", 0));
 
-            Assert.That(tag.Children.First(), Is.InstanceOf<HamlNodeHtmlAttributeCollection>());
+            Assert.That(tag.Children.First(), Is.InstanceOf<HamlNodeXmlAttributeCollection>());
         }
 
         [Test]
@@ -104,7 +104,7 @@ namespace NHaml.Tests.Parser.Rules
             const string templateLine = "p{a='b'}";
             var tag = new HamlNodeTag(new HamlLine(templateLine, HamlRuleEnum.Tag, "", 0));
 
-            Assert.That(tag.Children.First(), Is.InstanceOf<HamlNodeHtmlAttributeCollection>());
+            Assert.That(tag.Children.First(), Is.InstanceOf<HamlNodeXmlAttributeCollection>());
         }
 
         [Test]

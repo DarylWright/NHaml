@@ -12,9 +12,9 @@ namespace NHaml.Walkers.CodeDom
 
         public override void Walk(HamlNode node)
         {
-            var commentNode = node as HamlNodeHtmlComment;
+            var commentNode = node as HamlNodeXmlComment;
             if (commentNode == null)
-                throw new System.InvalidCastException("HamlNodeHtmlCommentWalker requires that HamlNode object be of type HamlNodeHtmlComment.");
+                throw new System.InvalidCastException("HamlNodeHtmlCommentWalker requires that HamlNode object be of type HamlNodeXmlComment.");
 
             ClassBuilder.Append(node.Indent);
             ClassBuilder.Append("<!--" + commentNode.Content);

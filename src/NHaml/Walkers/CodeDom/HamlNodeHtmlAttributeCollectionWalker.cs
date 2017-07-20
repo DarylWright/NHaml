@@ -15,11 +15,11 @@ namespace NHaml.Walkers.CodeDom
 
         public override void Walk(HamlNode node)
         {
-            var attributeCollectionNode = node as HamlNodeHtmlAttributeCollection;
+            var attributeCollectionNode = node as HamlNodeXmlAttributeCollection;
             if (attributeCollectionNode == null)
-                throw new System.InvalidCastException("HamlNodeHtmlAttributeCollectionWalker requires that HamlNode object be of type HamlNodeHtmlAttributeCollection.");
+                throw new System.InvalidCastException("HamlNodeHtmlAttributeCollectionWalker requires that HamlNode object be of type HamlNodeXmlAttributeCollection.");
 
-            foreach (HamlNodeHtmlAttribute childNode in attributeCollectionNode.Children)
+            foreach (HamlNodeXmlAttribute childNode in attributeCollectionNode.Children)
             {
                 if (childNode.Content.StartsWith("class=")
                     || childNode.Content.StartsWith("id=")) continue;
@@ -29,7 +29,7 @@ namespace NHaml.Walkers.CodeDom
 
         private void MakeAttribute(HamlNode childNode)
         {
-            var attributeNode = childNode as HamlNodeHtmlAttribute;
+            var attributeNode = childNode as HamlNodeXmlAttribute;
             if (attributeNode == null)
                 throw new HamlMalformedTagException("Unexpected " + childNode.GetType().FullName + " tag in AttributeCollection node",
                     childNode.SourceFileLineNum);

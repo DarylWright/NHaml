@@ -4,9 +4,9 @@ using NHaml.Parser.Exceptions;
 
 namespace NHaml.Parser.Rules
 {
-    public class HamlNodeHtmlAttributeCollection : HamlNode
+    public class HamlNodeXmlAttributeCollection : HamlNode
     {
-        public HamlNodeHtmlAttributeCollection(int sourceFileLineNo, string attributeCollection)
+        public HamlNodeXmlAttributeCollection(int sourceFileLineNo, string attributeCollection)
             : base(sourceFileLineNo, attributeCollection)
             
         {
@@ -16,20 +16,21 @@ namespace NHaml.Parser.Rules
             ParseChildren(attributeCollection);
         }
 
-        protected override bool IsContentGeneratingTag
-        {
-            get { return true; }
-        }
+        protected override bool IsContentGeneratingTag => true;
 
         private void ParseChildren(string attributeCollection)
         {
-            int index = 1;
-            char closingBracketChar = attributeCollection[0] == '{' ? '}' : ')';
+            var index = 1;
+
+            var closingBracket = attributeCollection[0] == '{' ? '}' : ')';
+
             while (index < attributeCollection.Length)
             {
-                string nameValuePair = GetNextAttributeToken(attributeCollection, closingBracketChar, ref index);
+                var nameValuePair = GetNextAttributeToken(attributeCollection, closingBracket, ref index);
+
                 if (!string.IsNullOrEmpty(nameValuePair))
-                    AddChild(new HamlNodeHtmlAttribute(SourceFileLineNum, nameValuePair));
+                    AddChild(new HamlNodeXmlAttribute(SourceFileLineNum, nameValuePair));
+
                 index++;
             }
         }
@@ -37,10 +38,12 @@ namespace NHaml.Parser.Rules
         private static string GetNextAttributeToken(string attributeCollection, char closingBracketChar, ref int index)
         {
             var terminatingChars = new[] { ',', ' ', '\t', closingBracketChar };
-            string nameValuePair = HtmlStringHelper.ExtractTokenFromTagString(attributeCollection, ref index,
-                terminatingChars);
+
+            var nameValuePair = HtmlStringHelper.GetNextTagAttributeToken(attributeCollection, ref index, terminatingChars);
+
             if (terminatingChars.Contains(nameValuePair[nameValuePair.Length - 1]))
                 nameValuePair = nameValuePair.Substring(0, nameValuePair.Length - 1);
+
             return nameValuePair;
         }
     }

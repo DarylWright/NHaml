@@ -7,34 +7,41 @@ namespace NHaml.Crosscutting
     {
         enum AttributeParseStates { Normal, SingleQuoteEscaped, DoubleQuoteEscaped };
 
-        public static bool IsHtmlIdentifierChar(Char curChar)
+        public static bool IsHtmlIdentifierChar(char curChar)
         {
-            return (Char.IsLetterOrDigit(curChar)
+            return (char.IsLetterOrDigit(curChar)
                     || curChar == '_'
                     || curChar == '-');
         }
 
-        public static string ExtractTokenFromTagString(string inputString, ref int index, char[] endMarkers)
+        public static string GetNextTagAttributeToken(string inputString, ref int index, char[] endMarkers)
         {
             var state = AttributeParseStates.Normal;
-            int startIndex = index;
+
+            var startIndex = index;
 
             for (; index < inputString.Length; index++)
             {
+                // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (state)
                 {
                     case AttributeParseStates.Normal:
                         if (inputString[index] == '\'')
                             state = AttributeParseStates.SingleQuoteEscaped;
+
                         else if (inputString[index] == '\"')
                             state = AttributeParseStates.DoubleQuoteEscaped;
+
                         else if (endMarkers.Contains(inputString[index]))
                             return inputString.Substring(startIndex, index - startIndex + 1);
+
                         break;
+
                     case AttributeParseStates.SingleQuoteEscaped:
                         if (inputString[index] == '\'')
                             state = AttributeParseStates.Normal;
                         break;
+
                     case AttributeParseStates.DoubleQuoteEscaped:
                         if (inputString[index] == '\"')
                             state = AttributeParseStates.Normal;

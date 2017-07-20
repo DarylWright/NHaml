@@ -17,7 +17,7 @@ namespace NHaml.Parser
                 case HamlRuleEnum.HamlComment:
                     return new HamlNodeHamlComment(nodeLine);
                 case HamlRuleEnum.XmlComment:
-                    return new HamlNodeHtmlComment(nodeLine);
+                    return new HamlNodeXmlComment(nodeLine);
                 case HamlRuleEnum.Evaluation:
                     return new HamlNodeEval(nodeLine);
                 case HamlRuleEnum.Code:
@@ -26,8 +26,6 @@ namespace NHaml.Parser
                     return new HamlNodeDocType(nodeLine);
                 case HamlRuleEnum.Partial:
                     return new HamlNodePartial(nodeLine);
-                case HamlRuleEnum.ViewProperty:
-                    return new HamlNodeViewProperty(nodeLine);
                 case HamlRuleEnum.Filter:
                     return new HamlNodeFilter(nodeLine);
                 default:

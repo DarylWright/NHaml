@@ -14,7 +14,7 @@ namespace NHaml.Tests.Parser
         [TestCase(HamlRuleEnum.PlainText, typeof(HamlNodeTextContainer))]
         [TestCase(HamlRuleEnum.Tag, typeof(HamlNodeTag))]
         [TestCase(HamlRuleEnum.HamlComment, typeof(HamlNodeHamlComment))]
-        [TestCase(HamlRuleEnum.XmlComment, typeof(HamlNodeHtmlComment))]
+        [TestCase(HamlRuleEnum.XmlComment, typeof(HamlNodeXmlComment))]
         [TestCase(HamlRuleEnum.Evaluation, typeof(HamlNodeEval))]
         public void GetHamlNode_DifferentHamlLineTypes_ReturnsCorrectHamlNode(HamlRuleEnum rule, Type nodeType)
         {

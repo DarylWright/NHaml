@@ -9,22 +9,13 @@ namespace NHaml.Parser.Rules
             : base(sourceLineNum, content)
         { }
 
-        protected override bool IsContentGeneratingTag
-        {
-            get { return true; }
-        }
+        protected override bool IsContentGeneratingTag => true;
 
-        public string VariableName
-        {
-            get
-            {
-                return Content.Substring(2, Content.Length - 3);
-            }
-        }
+        public string VariableName => Content.Substring(2, Content.Length - 3);
 
         public bool IsVariableViewDataKey()
         {
-            return VariableName.All(Char.IsLetterOrDigit);
+            return VariableName.All(char.IsLetterOrDigit);
         }
     }
 }

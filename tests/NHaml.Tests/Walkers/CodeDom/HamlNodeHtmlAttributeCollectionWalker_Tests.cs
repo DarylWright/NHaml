@@ -24,7 +24,7 @@ namespace NHaml.Tests.Walkers.CodeDom
         [TestCase("(a)", " a")]
         public void Walk_VaryingAttributeCollections_WritesCorrectAttributes(string hamlLine, string expectedTag)
         {
-            var node = new HamlNodeHtmlAttributeCollection(0, hamlLine);
+            var node = new HamlNodeXmlAttributeCollection(0, hamlLine);
 
             var builder = new ClassBuilderMock();
             new HamlNodeHtmlAttributeCollectionWalker(builder, new HamlHtmlOptions())

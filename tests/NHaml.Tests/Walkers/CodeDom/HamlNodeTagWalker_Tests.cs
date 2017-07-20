@@ -157,7 +157,7 @@ namespace NHaml.Tests.Walkers.CodeDom
         {
             // Arrange
             var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeHtmlAttributeCollection(0, "(id='id')"));
+            tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(id='id')"));
 
             // Act
             _tagWalker.Walk(tagNode);
@@ -173,7 +173,7 @@ namespace NHaml.Tests.Walkers.CodeDom
         {
             // Arrange
             var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeHtmlAttributeCollection(0, "(class='class')"));
+            tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(class='class')"));
 
             // Act
             _tagWalker.Walk(tagNode);
@@ -189,7 +189,7 @@ namespace NHaml.Tests.Walkers.CodeDom
             // Arrange
             var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
             tagNode.AddChild(new HamlNodeTagId(0, "id1"));
-            tagNode.AddChild(new HamlNodeHtmlAttributeCollection(0, "(id='id2')"));
+            tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(id='id2')"));
 
             // Act
             _tagWalker.Walk(tagNode);
@@ -205,7 +205,7 @@ namespace NHaml.Tests.Walkers.CodeDom
             // Arrange
             var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
             tagNode.AddChild(new HamlNodeTagClass(0, "class2"));
-            tagNode.AddChild(new HamlNodeHtmlAttributeCollection(0, "(class='class1')"));
+            tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(class='class1')"));
 
             // Act
             _tagWalker.Walk(tagNode);
@@ -222,7 +222,7 @@ namespace NHaml.Tests.Walkers.CodeDom
         public void Walk_EmptyAttributeCollectionNode_WritesCorrectAttributes(string tag, string attributes, string expectedOutput)
         {
             var tagNode = new HamlNodeTag(new HamlLine(tag, HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeHtmlAttributeCollection(0, attributes));
+            tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, attributes));
 
             _tagWalker.Walk(tagNode);
 

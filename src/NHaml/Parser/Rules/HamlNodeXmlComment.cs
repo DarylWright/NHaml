@@ -1,8 +1,8 @@
 ﻿namespace NHaml.Parser.Rules
 {
-    public class HamlNodeHtmlComment : HamlNode
+    public class HamlNodeXmlComment : HamlNode
     {
-        public HamlNodeHtmlComment(IO.HamlLine nodeLine)
+        public HamlNodeXmlComment(IO.HamlLine nodeLine)
             : base(nodeLine)
         { }
 
