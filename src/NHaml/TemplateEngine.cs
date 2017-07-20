@@ -37,7 +37,7 @@ namespace NHaml
 
         public ITemplateContentProvider TemplateContentProvider
         {
-            set { _templateFactoryFactory.TemplateContentProvider = value; }
+            set => _templateFactoryFactory.TemplateContentProvider = value;
         }
     }
 }

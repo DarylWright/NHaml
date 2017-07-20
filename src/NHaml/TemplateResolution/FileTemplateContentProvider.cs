@@ -41,7 +41,7 @@ namespace NHaml.TemplateResolution
             //        return new FileViewSource(new FileInfo(combine));
             //}
 
-            throw new FileNotFoundException(string.Format("Could not find template '{0}'.", templateName));
+            throw new FileNotFoundException($"Could not find template '{templateName}'.");
         }
 
         protected virtual FileInfo CreateFileInfo(string templateName)
@@ -59,16 +59,12 @@ namespace NHaml.TemplateResolution
         }
 
 
-        public IEnumerable<string> PathSources {
-            get
-            {
-                return new ReadOnlyCollection<string>(_pathSources);
-            }
-        }
+        public IEnumerable<string> PathSources => new ReadOnlyCollection<string>(_pathSources);
 
-        /// <remarks>The path is assumed to be relative to the AppDoamin BaseDirectory.</remarks>
+        /// <remarks>The path is assumed to be relative to the AppDomain BaseDirectory.</remarks>
         public void AddPathSource(string pathSource)
         {
+            //TODO: Get the corresponding base directory in Xamarin.Forms
             _pathSources.Add(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pathSource));
         }
 

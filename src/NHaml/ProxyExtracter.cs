@@ -21,7 +21,7 @@ namespace NHaml
             {
                 var interfaces = type.GetInterfaces();
                 if (interfaces.Length <= 1)
-                    throw new Exception(string.Format("Could not create non dynamic type for '{0}'.", type.FullName));
+                    throw new Exception($"Could not create non dynamic type for '{type.FullName}'.");
                 return GetNonProxiedType(interfaces[0]);
             }
             return GetNonProxiedType(baseType);
@@ -35,6 +35,7 @@ namespace NHaml
         }
 
         //HACK: must be a better way of working this out
+        //TODO: Find an appropriate solution to this reflection problem
         private static bool IsDynamic(Type type)
         {
             try

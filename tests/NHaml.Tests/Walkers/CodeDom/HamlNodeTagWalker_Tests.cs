@@ -84,73 +84,73 @@ namespace NHaml.Tests.Walkers.CodeDom
             Assert.That(_classBuilderMock.Build(""), Is.EqualTo(expectedTag));
         }
 
-        [Test]
-        public void Walk_IdFollowedByClassNodes_OrderedCorrectly()
-        {
-            // Arrange
-            const string tagId = "id";
-            const string tagClass = "class";
-            var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeTagId(0, tagId));
-            tagNode.AddChild(new HamlNodeTagClass(0, tagClass));
+        //[Test]
+        //public void Walk_IdFollowedByClassNodes_OrderedCorrectly()
+        //{
+        //    // Arrange
+        //    const string tagId = "id";
+        //    const string tagClass = "class";
+        //    var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
+        //    tagNode.AddChild(new HamlNodeTagId(0, tagId));
+        //    tagNode.AddChild(new HamlNodeTagClass(0, tagClass));
 
-            // Act
-            _tagWalker.Walk(tagNode);
+        //    // Act
+        //    _tagWalker.Walk(tagNode);
 
-            // Assert
-            const string expectedTag = @"<p class='class' id='id'></p>";
-            Assert.That(_classBuilderMock.Build(""), Is.EqualTo(expectedTag));
-        }
+        //    // Assert
+        //    const string expectedTag = @"<p class='class' id='id'></p>";
+        //    Assert.That(_classBuilderMock.Build(""), Is.EqualTo(expectedTag));
+        //}
 
-        [Test]
-        public void Walk_ClassFollowedByIdNodes_OrderedCorrectly()
-        {
-            // Arrange
-            const string tagId = "id";
-            const string tagClass = "class";
-            var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeTagClass(0, tagClass));
-            tagNode.AddChild(new HamlNodeTagId(0, tagId));
+        //[Test]
+        //public void Walk_ClassFollowedByIdNodes_OrderedCorrectly()
+        //{
+        //    // Arrange
+        //    const string tagId = "id";
+        //    const string tagClass = "class";
+        //    var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
+        //    tagNode.AddChild(new HamlNodeTagClass(0, tagClass));
+        //    tagNode.AddChild(new HamlNodeTagId(0, tagId));
 
-            // Act
-            _tagWalker.Walk(tagNode);
+        //    // Act
+        //    _tagWalker.Walk(tagNode);
 
-            // Assert
-            const string expectedTag = @"<p class='class' id='id'></p>";
-            Assert.That(_classBuilderMock.Build(""), Is.EqualTo(expectedTag));
-        }
+        //    // Assert
+        //    const string expectedTag = @"<p class='class' id='id'></p>";
+        //    Assert.That(_classBuilderMock.Build(""), Is.EqualTo(expectedTag));
+        //}
 
-        [Test]
-        public void Walk_MultipleClassNodes_WritesCorrectClassAttribute()
-        {
-            // Arrange
-            var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeTagClass(0, "class1"));
-            tagNode.AddChild(new HamlNodeTagClass(0, "class2"));
+        //[Test]
+        //public void Walk_MultipleClassNodes_WritesCorrectClassAttribute()
+        //{
+        //    // Arrange
+        //    var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
+        //    tagNode.AddChild(new HamlNodeTagClass(0, "class1"));
+        //    tagNode.AddChild(new HamlNodeTagClass(0, "class2"));
 
-            // Act
-            _tagWalker.Walk(tagNode);
+        //    // Act
+        //    _tagWalker.Walk(tagNode);
 
-            // Assert
-            const string expectedClassAttr = @"class='class1 class2'";
-            Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedClassAttr));
-        }
+        //    // Assert
+        //    const string expectedClassAttr = @"class='class1 class2'";
+        //    Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedClassAttr));
+        //}
 
-        [Test]
-        public void Walk_MultipleIdNodes_WritesCorrectIdAttribute()
-        {
-            // Arrange
-            var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeTagId(0, "id1"));
-            tagNode.AddChild(new HamlNodeTagId(0, "id2"));
+        //[Test]
+        //public void Walk_MultipleIdNodes_WritesCorrectIdAttribute()
+        //{
+        //    // Arrange
+        //    var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
+        //    tagNode.AddChild(new HamlNodeTagId(0, "id1"));
+        //    tagNode.AddChild(new HamlNodeTagId(0, "id2"));
 
-            // Act
-            _tagWalker.Walk(tagNode);
+        //    // Act
+        //    _tagWalker.Walk(tagNode);
 
-            // Assert
-            const string expectedIdAttr = @"id='id2'";
-            Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedIdAttr));
-        }
+        //    // Assert
+        //    const string expectedIdAttr = @"id='id2'";
+        //    Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedIdAttr));
+        //}
 
         [Test]
         public void Walk_IdHtmlAttribute_WritesCorrectIdAttribute()
@@ -183,37 +183,37 @@ namespace NHaml.Tests.Walkers.CodeDom
             Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedIdAttr));
         }
 
-        [Test]
-        public void Walk_IdNoteAndIdHtmlAttribute_WritesCorrectIdAttribute()
-        {
-            // Arrange
-            var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeTagId(0, "id1"));
-            tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(id='id2')"));
+        //[Test]
+        //public void Walk_IdNoteAndIdHtmlAttribute_WritesCorrectIdAttribute()
+        //{
+        //    // Arrange
+        //    var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
+        //    tagNode.AddChild(new HamlNodeTagId(0, "id1"));
+        //    tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(id='id2')"));
 
-            // Act
-            _tagWalker.Walk(tagNode);
+        //    // Act
+        //    _tagWalker.Walk(tagNode);
 
-            // Assert
-            const string expectedIdAttr = @"id='id1_id2'";
-            Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedIdAttr));
-        }
+        //    // Assert
+        //    const string expectedIdAttr = @"id='id1_id2'";
+        //    Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedIdAttr));
+        //}
 
-        [Test]
-        public void Walk_ClassNoteAndClassHtmlAttribute_WritesCorrectIdAttribute()
-        {
-            // Arrange
-            var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
-            tagNode.AddChild(new HamlNodeTagClass(0, "class2"));
-            tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(class='class1')"));
+        //[Test]
+        //public void Walk_ClassNoteAndClassHtmlAttribute_WritesCorrectIdAttribute()
+        //{
+        //    // Arrange
+        //    var tagNode = new HamlNodeTag(new HamlLine("p", HamlRuleEnum.Tag, "", 0));
+        //    tagNode.AddChild(new HamlNodeTagClass(0, "class2"));
+        //    tagNode.AddChild(new HamlNodeXmlAttributeCollection(0, "(class='class1')"));
 
-            // Act
-            _tagWalker.Walk(tagNode);
+        //    // Act
+        //    _tagWalker.Walk(tagNode);
 
-            // Assert
-            const string expectedIdAttr = @"class='class1 class2'";
-            Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedIdAttr));
-        }
+        //    // Assert
+        //    const string expectedIdAttr = @"class='class1 class2'";
+        //    Assert.That(_classBuilderMock.Build(""), Is.StringContaining(expectedIdAttr));
+        //}
 
         [Test]
         [TestCase("p", "()", "<p></p>")]

@@ -45,7 +45,7 @@ namespace NHaml
         public TemplateFactory CompileTemplateFactory(string className, ViewSourceCollection viewSourceList, Type baseType)
         {
             var hamlDocument = BuildHamlDocument(viewSourceList);
-            string templateCode = _treeWalker.Walk(hamlDocument, className, baseType, _imports);
+            var templateCode = _treeWalker.Walk(hamlDocument, className, baseType, _imports);
             var templateFactory = _templateFactoryCompiler.Compile(templateCode, className, _referencedAssemblyLocations);
             return templateFactory;
         }
@@ -76,6 +76,7 @@ namespace NHaml
         {
             try
             {
+                //TODO: Remove assumptions about file locations and names and put those into configuration
                 var masterView = _contentProvider.GetViewSource("Views/Shared/Application.haml");
                 return masterView != null
                     ? HamlDocumentCacheGetOrAdd(masterView.FileName, () => _treeParser.ParseViewSource(masterView))
@@ -126,7 +127,7 @@ namespace NHaml
 
         public ITemplateContentProvider TemplateContentProvider
         {
-            set { _contentProvider = value; }
+            set => _contentProvider = value;
         }
     }
 }

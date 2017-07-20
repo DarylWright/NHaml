@@ -8,9 +8,6 @@ namespace NHaml.Parser
             : base(new HamlLine(fileName, HamlRuleEnum.Document))
         { }
 
-        protected override bool IsContentGeneratingTag
-        {
-            get { return false; }
-        }
+        protected override bool IsContentGeneratingTag => false;
     }
 }

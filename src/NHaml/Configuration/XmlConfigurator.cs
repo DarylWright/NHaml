@@ -15,7 +15,8 @@ namespace NHaml.Configuration
     {
         public static TemplateEngine GetTemplateEngine()
         {
-            string configFile = HttpContext.Current == null
+            //TODO: Get configuration file within mobile environment. Do not use ConfigurationManager nor WebConfigurationManager.
+            var configFile = HttpContext.Current == null
                                     ? ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath
                                     : WebConfigurationManager.OpenWebConfiguration("~").FilePath;
 

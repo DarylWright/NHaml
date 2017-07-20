@@ -17,6 +17,7 @@ namespace NHaml.TemplateBase
 
         public void Render(TextWriter writer)
         {
+            //TODO: HtmlVersion is not relevant to Xaml
             Render(writer, HtmlVersion.XHtml, ViewData ?? new Dictionary<string, object>());
         }
 
@@ -58,7 +59,8 @@ namespace NHaml.TemplateBase
 
         protected string AppendSelfClosingTagSuffix()
         {
-            return _htmlVersion == HtmlVersion.XHtml ? " />" : ">";
+            //return _htmlVersion == HtmlVersion.XHtml ? " />" : ">";
+            return " />";
         }
 
         protected void SetViewData(IDictionary<string, object> viewData)

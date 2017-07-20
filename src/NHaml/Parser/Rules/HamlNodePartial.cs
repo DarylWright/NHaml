@@ -8,15 +8,13 @@ namespace NHaml.Parser.Rules
             IsResolved = false;
         }
 
-        protected override bool IsContentGeneratingTag
-        {
-            get { return false; }
-        }
+        protected override bool IsContentGeneratingTag => false;
 
         public void SetDocument(HamlDocument partialDocument)
         {
             foreach (var child in partialDocument.Children)
                 AddChild(child);
+
             IsResolved = true;
         }
 

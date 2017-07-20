@@ -23,34 +23,22 @@ namespace NHaml.Parser
 
         protected abstract bool IsContentGeneratingTag { get; }
 
-        public string Content { get; private set; }
+        public string Content { get; }
 
-        public string Indent
-        {
-            get { return _line.HamlRule == HamlRuleEnum.Document ? "" : _line.Indent; }
-        }
+        public string Indent => _line.HamlRule == HamlRuleEnum.Document ? "" : _line.Indent;
 
         public bool IsMultiLine
         {
             get { return Children.Any(x => x.IsInline == false); }
         }
 
-        protected bool IsInline
-        {
-            get { return _line.IsInline; }
-        }
+        protected bool IsInline => _line.IsInline;
 
-        public int IndentCount
-        {
-            get { return _line.HamlRule == HamlRuleEnum.Document ? -1 : _line.IndentCount; }
-        }
+        public int IndentCount => _line.HamlRule == HamlRuleEnum.Document ? -1 : _line.IndentCount;
 
-        public int SourceFileLineNum { get; private set; }
+        public int SourceFileLineNum { get; }
 
-        public IEnumerable<HamlNode> Children
-        {
-            get { return _children; }
-        }
+        public IEnumerable<HamlNode> Children => _children;
 
         public void AddChild(HamlNode hamlNode)
         {
@@ -84,8 +72,9 @@ namespace NHaml.Parser
 
         public bool IsWhitespaceNode()
         {
-            return (this is HamlNodeTextContainer)
-                && ((HamlNodeTextContainer)this).IsWhitespace();
+            var container = this as HamlNodeTextContainer;
+
+            return container != null && container.IsWhitespace();
         }
 
         public bool IsLeadingWhitespaceTrimmed
@@ -128,14 +117,16 @@ namespace NHaml.Parser
 
         private bool IsInternalWhitespaceTrimmed()
         {
-            return this is HamlNodeTag
-                && ((HamlNodeTag)this).WhitespaceRemoval == WhitespaceRemoval.Internal;
+            var tag = this as HamlNodeTag;
+
+            return tag != null && tag.WhitespaceRemoval == WhitespaceRemoval.Internal;
         }
 
         private bool IsSurroundingWhitespaceRemoved()
         {
-            return this is HamlNodeTag
-                && ((HamlNodeTag)this).WhitespaceRemoval == WhitespaceRemoval.Surrounding;
+            var tag = this as HamlNodeTag;
+
+            return tag != null && tag.WhitespaceRemoval == WhitespaceRemoval.Surrounding;
         }
 
         private HamlNode ParentNonWhitespaceNode()

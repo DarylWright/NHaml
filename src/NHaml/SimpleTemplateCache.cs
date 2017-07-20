@@ -5,7 +5,7 @@ namespace NHaml
 {
     public class SimpleTemplateCache : IHamlTemplateCache
     {
-        class TemplateFactoryCacheEntry
+        private class TemplateFactoryCacheEntry
         {
             public DateTime TimeStamp;
             public TemplateFactory TemplateFactory;
@@ -16,7 +16,7 @@ namespace NHaml
         public TemplateFactory GetOrAdd(string templateKey, DateTime timeStamp, Func<TemplateFactory> templateGet)
         {
             TemplateFactoryCacheEntry result;
-            bool templateInCache = TemplateCache.TryGetValue(templateKey, out result);
+            var templateInCache = TemplateCache.TryGetValue(templateKey, out result);
             if (templateInCache == false || result.TimeStamp < timeStamp)
             {
                 result = new TemplateFactoryCacheEntry

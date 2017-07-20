@@ -34,28 +34,28 @@ namespace NHaml.Walkers.CodeDom
 
         private void AppendAttributes(HamlNodeTag nodeTag)
         {
-            MakeClassAttribute(nodeTag);
-            MakeIdAttribute(nodeTag);
+            //MakeClassAttribute(nodeTag);
+            //MakeIdAttribute(nodeTag);
             WalkHtmlStyleAttributes(nodeTag);
         }
 
-        private void MakeClassAttribute(HamlNodeTag nodeTag)
-        {
-            var classValues = GetClassValues(nodeTag);
-            AppendClassAttribute(classValues);
-        }
+        //private void MakeClassAttribute(HamlNodeTag nodeTag)
+        //{
+        //    var classValues = GetClassValues(nodeTag);
+        //    AppendClassAttribute(classValues);
+        //}
 
-        private static IList<HamlNodeTextContainer> GetClassValues(HamlNodeTag nodeTag)
-        {
-            var classValues = (from collection in nodeTag.Children.OfType<HamlNodeXmlAttributeCollection>()
-                               from attr in collection.Children.OfType<HamlNodeXmlAttribute>()
-                               where attr.Name == "class"
-                               from attrFragment in attr.Children
-                               select (HamlNodeTextContainer)attrFragment).ToList();
+        //private static IList<HamlNodeTextContainer> GetClassValues(HamlNodeTag nodeTag)
+        //{
+        //    var classValues = (from collection in nodeTag.Children.OfType<HamlNodeXmlAttributeCollection>()
+        //                       from attr in collection.Children.OfType<HamlNodeXmlAttribute>()
+        //                       where attr.Name == "class"
+        //                       from attrFragment in attr.Children
+        //                       select (HamlNodeTextContainer)attrFragment).ToList();
 
-            classValues.AddRange(nodeTag.Children.OfType<HamlNodeTagClass>().Select(x => new HamlNodeTextContainer(x.SourceFileLineNum, x.Content)));
-            return classValues;
-        }
+        //    classValues.AddRange(nodeTag.Children.OfType<HamlNodeTagClass>().Select(x => new HamlNodeTextContainer(x.SourceFileLineNum, x.Content)));
+        //    return classValues;
+        //}
 
         private void AppendClassAttribute(IList<HamlNodeTextContainer> classTextContainers)
         {
@@ -71,24 +71,24 @@ namespace NHaml.Walkers.CodeDom
             ClassBuilder.AppendAttributeNameValuePair("class", classFragments, '\'');
         }
 
-        private void MakeIdAttribute(HamlNodeTag nodeTag)
-        {
-            var idValues = GetIdValues(nodeTag);
-            AppendIdAttribute(idValues);
-        }
+        //private void MakeIdAttribute(HamlNodeTag nodeTag)
+        //{
+        //    var idValues = GetIdValues(nodeTag);
+        //    AppendIdAttribute(idValues);
+        //}
 
-        private static IList<HamlNodeTextContainer> GetIdValues(HamlNodeTag nodeTag)
-        {
-            var idValues = (from collection in nodeTag.Children.OfType<HamlNodeXmlAttributeCollection>()
-                            from attr in collection.Children.OfType<HamlNodeXmlAttribute>()
-                            where attr.Name == "id"
-                            from attrFragment in attr.Children
-                            select (HamlNodeTextContainer)attrFragment).ToList();
+        //private static IList<HamlNodeTextContainer> GetIdValues(HamlNodeTag nodeTag)
+        //{
+        //    var idValues = (from collection in nodeTag.Children.OfType<HamlNodeXmlAttributeCollection>()
+        //                    from attr in collection.Children.OfType<HamlNodeXmlAttribute>()
+        //                    where attr.Name == "id"
+        //                    from attrFragment in attr.Children
+        //                    select (HamlNodeTextContainer)attrFragment).ToList();
 
-            var idTag = nodeTag.Children.LastOrDefault(x => x.GetType() == typeof(HamlNodeTagId));
-            if (idTag != null) idValues.Insert(0, new HamlNodeTextContainer(idTag.SourceFileLineNum, idTag.Content));
-            return idValues;
-        }
+        //    var idTag = nodeTag.Children.LastOrDefault(x => x.GetType() == typeof(HamlNodeTagId));
+        //    if (idTag != null) idValues.Insert(0, new HamlNodeTextContainer(idTag.SourceFileLineNum, idTag.Content));
+        //    return idValues;
+        //}
 
         private void AppendIdAttribute(IList<HamlNodeTextContainer> idValues)
         {

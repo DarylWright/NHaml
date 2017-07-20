@@ -21,8 +21,8 @@ namespace NHaml.Walkers.CodeDom
 
             foreach (HamlNodeXmlAttribute childNode in attributeCollectionNode.Children)
             {
-                if (childNode.Content.StartsWith("class=")
-                    || childNode.Content.StartsWith("id=")) continue;
+                //if (childNode.Content.StartsWith("class=")
+                //    || childNode.Content.StartsWith("id=")) continue;
                 MakeAttribute(childNode);
             }
         }
