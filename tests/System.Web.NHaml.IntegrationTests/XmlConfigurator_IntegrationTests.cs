@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Web.NHaml.Configuration;
-using System.Web.NHaml.TemplateBase;
-using System.Web.NHaml.TemplateResolution;
+using NHaml.Configuration;
+using NHaml.TemplateBase;
+using NHaml.TemplateResolution;
 using NHaml.Tests.Builders;
 using NUnit.Framework;
 using System.IO;

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.NHaml.Configuration;
-using System.Web.NHaml.TemplateBase;
-using System.Web.NHaml.TemplateResolution;
-using System.Web.NHaml.Walkers.CodeDom;
+using NHaml.Configuration;
+using NHaml.TemplateBase;
+using NHaml.TemplateResolution;
+using NHaml.Walkers.CodeDom;
 using NUnit.Framework;
 using NHaml.Tests.Builders;
 using NHaml;
@@ -29,7 +29,7 @@ namespace HamlSpec
 
         public void OutputSummaryToConsole()
         {
-            Console.WriteLine(string.Format("{0} OF {1} TESTS FAILED.", _totalNoTestsFailed, _totalNoTests));
+            Console.WriteLine($"{_totalNoTestsFailed} OF {_totalNoTests} TESTS FAILED.");
         }
 
         public void ExecuteSpecs(string groupName)

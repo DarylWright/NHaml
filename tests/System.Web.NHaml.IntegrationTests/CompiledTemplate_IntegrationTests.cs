@@ -1,11 +1,9 @@
-﻿using System.Web.NHaml;
-using System.Web.NHaml.Compilers;
-using System.Web.NHaml.IO;
-using System.Web.NHaml.Parser;
-using System.Web.NHaml.TemplateBase;
-using System.Web.NHaml.TemplateResolution;
-using System.Web.NHaml.Walkers.CodeDom;
-using NHaml;
+﻿using NHaml.Compilers;
+using NHaml.IO;
+using NHaml.Parser;
+using NHaml.TemplateBase;
+using NHaml.TemplateResolution;
+using NHaml.Walkers.CodeDom;
 using NUnit.Framework;
 using NHaml.Tests.Builders;
 using System.IO;
