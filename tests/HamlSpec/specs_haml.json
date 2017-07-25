@@ -99,28 +99,7 @@
       "haml" : "%p",
       "html" : "<p></p>"
     },
-
-    "a self-closing tag (XHTML)" : {
-      "haml" : "%meta",
-      "html" : "<meta />"
-    },
-
-    "a self-closing tag (HTML4)" : {
-      "haml" : "%meta",
-      "html" : "<meta>",
-      "config" : {
-        "format" : "html4"
-      }
-    },
-
-    "a self-closing tag (HTML5)" : {
-      "haml" : "%meta",
-      "html" : "<meta>",
-      "config" : {
-        "format" : "html5"
-      }
-    },
-
+    
     "a self-closing tag ('/' modifier + XHTML)" : {
       "haml" : "%zzz/",
       "html" : "<zzz />"
@@ -129,54 +108,6 @@
     "a self-closing tag with an attribute ('/' modifier + XHTML)" : {
       "haml" : "%zzz(a='b')/",
       "html" : "<zzz a='b' />"
-    },
-
-    "a self-closing tag ('/' modifier + HTML5)" : {
-      "haml" : "%zzz/",
-      "html" : "<zzz>",
-      "config" : {
-        "format" : "html5"
-      }
-    },
-
-    "a tag with a CSS class" : {
-      "haml" : "%p.class1",
-      "html" : "<p class='class1'></p>"
-    },
-
-    "a tag with multiple CSS classes" : {
-      "haml" : "%p.class1.class2",
-      "html" : "<p class='class1 class2'></p>"
-    },
-
-    "a tag with a CSS id" : {
-      "haml" : "%p#id1",
-      "html" : "<p id='id1'></p>"
-    },
-
-    "a tag with multiple CSS id's" : {
-      "haml" : "%p#id1#id2",
-      "html" : "<p id='id2'></p>"
-    },
-
-    "a tag with a class followed by an id" : {
-      "haml" : "%p.class1#id1",
-      "html" : "<p class='class1' id='id1'></p>"
-    },
-
-    "a tag with an id followed by a class" : {
-      "haml" : "%p#id1.class1",
-      "html" : "<p class='class1' id='id1'></p>"
-    },
-
-    "an implicit div with a CSS id" : {
-      "haml" : "#id1",
-      "html" : "<div id='id1'></div>"
-    },
-
-    "an implicit div with a CSS class" : {
-      "haml" : ".class1",
-      "html" : "<div class='class1'></div>"
     },
 
     "multiple simple Haml tags" : {
@@ -213,34 +144,11 @@
     }
   },
 
-  "tags with unusual CSS identifiers" : {
-
-    "an all-numeric class" : {
-      "haml" : ".123",
-      "html" : "<div class='123'></div>"
-    },
-
-    "a class with underscores" : {
-      "haml" : ".__",
-      "html" : "<div class='__'></div>"
-    },
-
-    "a class with dashes" : {
-      "haml" : ".--",
-      "html" : "<div class='--'></div>"
-    }
-  },
-
   "tags with inline content" : {
 
     "Inline content simple tag" : {
       "haml" : "%p hello",
       "html" : "<p>hello</p>"
-    },
-
-    "Inline content tag with CSS" : {
-      "haml" : "%p.class1 hello",
-      "html" : "<p class='class1'>hello</p>"
     },
 
     "Inline content multiple simple tags" : {
@@ -254,11 +162,6 @@
     "Nested content simple tag" : {
       "haml" : "%p\n  hello",
       "html" : "<p>\n  hello\n</p>"
-    },
-
-    "Nested content tag with CSS" : {
-      "haml" : "%p.class1\n  hello",
-      "html" : "<p class='class1'>\n  hello\n</p>"
     },
 
     "Nested content multiple simple tags" : {
@@ -281,23 +184,6 @@
       "html" : "<p class='hello'></p>",
       "locals" : {
         "var" : "hello"
-      }
-    },
-
-    "HTML-style tag with a CSS class and 'class' as a variable attribute" : {
-      "haml" : ".hello(class=var)",
-      "html" : "<div class='hello world'></div>",
-	  "nHamlIgnored" : true,
-      "locals" : {
-        "var" : "world"
-      }
-    },
-
-    "HTML-style tag multiple CSS classes (sorted correctly)" : {
-      "haml" : ".z(class=var)",
-      "html" : "<div class='a z'></div>",
-      "locals" : {
-        "var" : "a"
       }
     }
   },
@@ -323,19 +209,9 @@
       "html" : "<p class='class1'></p>"
     },
 
-    "HTML-style tag with a CSS class and 'class' as an attribute" : {
-      "haml" : "%p.class2(class='class1')",
-      "html" : "<p class='class1 class2'></p>"
-    },
-
     "HTML-style tag with 'id' as an attribute" : {
       "haml" : "%p(id='1')",
       "html" : "<p id='1'></p>"
-    },
-
-    "HTML-style tag with a CSS id and 'id' as an attribute" : {
-      "haml" : "%p#id(id='1')",
-      "html" : "<p id='id_1'></p>"
     }
   },
 
@@ -435,12 +311,12 @@
   "silent comments" : {
 
     "an inline silent comment" : {
-      "haml" : "-# hello",
+      "haml" : "# hello",
       "html" : ""
     },
 
     "a nested silent comment" : {
-      "haml" : "-#\n  hello",
+      "haml" : "#\n  hello",
       "html" : ""
     }
 
@@ -569,14 +445,6 @@
       "html" : "<input checked='checked' />",
       "config" : {
         "format" : "xhtml"
-      }
-    },
-
-    "boolean attribute with HTML" : {
-      "haml" : "%input(checked=true)",
-      "html" : "<input checked>",
-      "config" : {
-        "format" : "html5"
       }
     }
   },

@@ -65,4 +65,7 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Views\ItemsPage.haml" />
+  </ItemGroup>
 </Project>

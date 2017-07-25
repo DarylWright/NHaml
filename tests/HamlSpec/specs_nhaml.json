@@ -105,19 +105,9 @@
       "html" : "<p class='class1'></p>"
     },
 
-    "Legacy-style tag with a CSS class and 'class' as an attribute" : {
-      "haml" : "%p.class2{class='class1'}",
-      "html" : "<p class='class1 class2'></p>"
-    },
-
     "Legacy-style tag with 'id' as an attribute" : {
       "haml" : "%p{id='1'}",
       "html" : "<p id='1'></p>"
-    },
-
-    "Legacy-style tag with a CSS id and 'id' as an attribute" : {
-      "haml" : "%p#id{id='1'}",
-      "html" : "<p id='id_1'></p>"
     }
   }
 }

@@ -1,0 +1,13 @@
+﻿!!! XML
+%ContentPage(xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="NHaml.Samples.Xamarin.Forms.Views.ItemsPage" Title="{Binding Title}" x:Name="BrowseItemsPage")
+  .ToolbarItems
+	%ToolbarItem( Text="Add Item" Clicked="AddItem_Clicked" )
+  .Content
+    %StackLayout
+      %ListView( x:Name="ItemsListView"	ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadItemsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement" ItemSelected="OnItemSelected" )
+        .ItemTemplate
+          %DataTemplate
+            %ViewCell
+              %StackLayout( Padding="10" )
+                %Label( Text="{Binding Text}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" )/
+                %Label( Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" )/
