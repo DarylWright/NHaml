@@ -10,6 +10,9 @@ using NHaml.Walkers;
 
 namespace NHaml
 {
+    /// <summary>
+    /// This class is responsible for creating the template factories for Haml documents.
+    /// </summary>
     public class TemplateFactoryFactory : ITemplateFactoryFactory
     {
         private readonly ITreeParser _treeParser;
@@ -21,8 +24,12 @@ namespace NHaml
         private readonly IDictionary<string, HamlDocument> _hamlDocumentCache = new Dictionary<string, HamlDocument>();
         private ITemplateContentProvider _contentProvider;
 
-        public TemplateFactoryFactory(ITemplateContentProvider contentProvider, ITreeParser treeParser, IDocumentWalker treeWalker,
-            ITemplateFactoryCompiler templateCompiler, IEnumerable<string> imports, IEnumerable<string> referencedAssemblyLocations)
+        public TemplateFactoryFactory(ITemplateContentProvider contentProvider,
+                                      ITreeParser treeParser,
+                                      IDocumentWalker treeWalker,
+                                      ITemplateFactoryCompiler templateCompiler,
+                                      IEnumerable<string> imports,
+                                      IEnumerable<string> referencedAssemblyLocations)
         {
             _contentProvider = contentProvider;
             _treeParser = treeParser;
@@ -42,6 +49,13 @@ namespace NHaml
             return CompileTemplateFactory(className, viewSourceList, typeof(TemplateBase.Template));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="viewSourceList"></param>
+        /// <param name="baseType"></param>
+        /// <returns></returns>
         public TemplateFactory CompileTemplateFactory(string className, ViewSourceCollection viewSourceList, Type baseType)
         {
             var hamlDocument = BuildHamlDocument(viewSourceList);

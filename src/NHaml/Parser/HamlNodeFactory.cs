@@ -14,6 +14,8 @@ namespace NHaml.Parser
                     return new HamlNodeTextContainer(nodeLine);
                 case HamlRuleEnum.Tag:
                     return new HamlNodeTag(nodeLine);
+                case HamlRuleEnum.ViewProperty:
+                    return new HamlNodeViewProperty(nodeLine);
                 case HamlRuleEnum.HamlComment:
                     return new HamlNodeHamlComment(nodeLine);
                 case HamlRuleEnum.XmlComment:

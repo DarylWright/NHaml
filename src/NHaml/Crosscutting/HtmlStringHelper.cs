@@ -7,11 +7,9 @@ namespace NHaml.Crosscutting
     {
         enum AttributeParseStates { Normal, SingleQuoteEscaped, DoubleQuoteEscaped };
 
-        public static bool IsHtmlIdentifierChar(char curChar)
+        public static bool IsXmlIdentifierChar(char curChar)
         {
-            return (char.IsLetterOrDigit(curChar)
-                    || curChar == '_'
-                    || curChar == '-');
+            return char.IsLetterOrDigit(curChar) || curChar == '_' || curChar == '.';
         }
 
         public static string GetNextTagAttributeToken(string inputString, ref int index, char[] endMarkers)

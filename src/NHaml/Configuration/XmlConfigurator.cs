@@ -11,8 +11,18 @@ using NHaml.Walkers.CodeDom;
 
 namespace NHaml.Configuration
 {
+    /// <summary>
+    /// The XmlConfigurator class is where the Haml engine is built and is also the composition root of the library.
+    /// </summary>
+    /// <remarks>
+    /// It is recommended to encapsulate the call to this class in an adapter from the calling application.
+    /// </remarks>
     public static class XmlConfigurator
     {
+        /// <summary>
+        /// Gets the Haml template engine using a configured configuration file location.
+        /// </summary>
+        /// <returns>The Haml template engine.</returns>
         public static TemplateEngine GetTemplateEngine()
         {
             //TODO: Get configuration file within mobile environment. Do not use ConfigurationManager nor WebConfigurationManager.
@@ -23,6 +33,17 @@ namespace NHaml.Configuration
             return GetTemplateEngine(configFile);
         }
 
+        /// <summary>
+        /// Gets the Haml template engine by explicitly providing the ITemplageContentProvider, a list of namespaces,
+        /// and a list of assembly references.
+        /// </summary>
+        /// <remarks>
+        /// TODO: Explain how the namespaces and assembly references work and what they are for.
+        /// </remarks>
+        /// <param name="templateContentProvider"></param>
+        /// <param name="defaultImports"></param>
+        /// <param name="defaultReferences"></param>
+        /// <returns>The Haml template engine.</returns>
         public static TemplateEngine GetTemplateEngine(ITemplateContentProvider templateContentProvider,
             IEnumerable<string> defaultImports, IEnumerable<string> defaultReferences)
         {
@@ -30,12 +51,25 @@ namespace NHaml.Configuration
             return GetTemplateEngine(templateContentProvider, nhamlConfiguration, defaultImports, defaultReferences);
         }
         
+        /// <summary>
+        /// Gets the Haml template engine with a single config file.
+        /// </summary>
+        /// <param name="configFile"></param>
+        /// <returns>The Haml template engine.</returns>
         public static TemplateEngine GetTemplateEngine(string configFile)
         {
             var nhamlConfiguration = NHamlConfigurationSection.GetConfiguration(configFile);
             return GetTemplateEngine(new FileTemplateContentProvider(), nhamlConfiguration, new List<string>(), new List<string>());
         }
 
+        /// <summary>
+        /// Builds and returns the Haml template engine.
+        /// </summary>
+        /// <param name="templateContentProvider"></param>
+        /// <param name="nhamlConfiguration"></param>
+        /// <param name="imports"></param>
+        /// <param name="referencedAssemblies"></param>
+        /// <returns>The Haml template engine.</returns>
         private static TemplateEngine GetTemplateEngine(ITemplateContentProvider templateContentProvider, NHamlConfigurationSection nhamlConfiguration, IEnumerable<string> imports, IEnumerable<string> referencedAssemblies)
         {
             var templateCache = new SimpleTemplateCache();

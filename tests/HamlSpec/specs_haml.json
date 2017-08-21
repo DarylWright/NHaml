@@ -93,7 +93,7 @@
 
   },
 
-  "basic Haml tags and CSS": {
+  "basic Haml tags": {
 
     "a simple Haml tag" : {
       "haml" : "%p",
@@ -110,10 +110,15 @@
       "html" : "<zzz a='b' />"
     },
 
-    "multiple simple Haml tags" : {
-      "haml" : "%div\n  %div\n    %p",
-      "html" : "<div>\n  <div>\n    <p></p>\n  </div>\n</div>"
-    }
+    "multiple simple Haml tags": {
+      "haml": "%div\n  %div\n    %p",
+      "html": "<div>\n  <div>\n    <p></p>\n  </div>\n</div>"
+    },
+
+    "view property as child of view": {
+      "haml": "%View\n  .Property\n    %SomeTag",
+      "html": "<View>\n  <View.Property>\n    <SomeTag></SomeTag>\n  </View.Property>\n</View>" 
+    } 
   },
 
   "tags with unusual HTML characters" : {
@@ -217,95 +222,100 @@
 
   "tags with Ruby-style attributes": {
 
-    "Ruby-style one attribute" : {
-      "haml" : "%p{:a => 'b'}",
-      "html" : "<p a='b'></p>",
-      "optional" : true
+    "Ruby-style one attribute": {
+      "haml": "%p{:a => 'b'}",
+      "html": "<p a='b'></p>",
+      "optional": true
     },
 
-    "Ruby-style attributes hash with whitespace" : {
-      "haml" : "%p{  :a  =>  'b'  }",
-      "html" : "<p a='b'></p>",
-      "optional" : true
+    "Ruby-style attributes hash with whitespace": {
+      "haml": "%p{  :a  =>  'b'  }",
+      "html": "<p a='b'></p>",
+      "optional": true
     },
 
-    "Ruby-style interpolated attribute" : {
-      "haml" : "%p{:a =>\"#{var}\"}",
-      "html" : "<p a='value'></p>",
-      "optional" : true,
-      "locals" : {
-        "var" : "value"
+    "Ruby-style interpolated attribute": {
+      "haml": "%p{:a =>\"#{var}\"}",
+      "html": "<p a='value'></p>",
+      "optional": true,
+      "locals": {
+        "var": "value"
       }
     },
 
-    "Ruby-style multiple attributes" : {
-      "haml" : "%p{ :a => 'b', 'c' => 'd' }",
-      "html" : "<p a='b' c='d'></p>",
-      "optional" : true
+    "Ruby-style multiple attributes": {
+      "haml": "%p{ :a => 'b', 'c' => 'd' }",
+      "html": "<p a='b' c='d'></p>",
+      "optional": true
     },
 
-    "Ruby-style attributes separated with newlines" : {
-      "haml" : "%p{ :a => 'b',\n  'c' => 'd' }",
-      "html" : "<p a='b' c='d'></p>",
-      "optional" : true
+    "Ruby-style attributes separated with newlines": {
+      "haml": "%p{ :a => 'b',\n  'c' => 'd' }",
+      "html": "<p a='b' c='d'></p>",
+      "optional": true
     },
 
-    "Ruby-style 'class' as an attribute" : {
-      "haml" : "%p{:class => 'class1'}",
-      "html" : "<p class='class1'></p>",
-      "optional" : true
+    "Ruby-style 'class' as an attribute": {
+      "haml": "%p{:class => 'class1'}",
+      "html": "<p class='class1'></p>",
+      "optional": true
     },
 
-    "Ruby-style tag with a CSS class and 'class' as an attribute" : {
-      "haml" : "%p.class2{:class => 'class1'}",
-      "html" : "<p class='class1 class2'></p>",
-      "optional" : true
+    "Ruby-style tag with 'id' as an attribute": {
+      "haml": "%p{:id => '1'}",
+      "html": "<p id='1'></p>",
+      "optional": true
     },
 
-    "Ruby-style tag with 'id' as an attribute" : {
-      "haml" : "%p{:id => '1'}",
-      "html" : "<p id='1'></p>",
-      "optional" : true
-    },
-
-    "Ruby-style tag with a CSS id and 'id' as an attribute" : {
-      "haml" : "%p#id{:id => '1'}",
-      "html" : "<p id='id_1'></p>",
-      "optional" : true
-    },
-
-    "Ruby-style tag with a CSS id and a numeric 'id' as an attribute" : {
-      "haml" : "%p#id{:id => 1}",
-      "html" : "<p id='id_1'></p>",
-      "optional" : true
-    },
-
-    "Ruby-style tag with a variable attribute" : {
-      "haml" : "%p{:class => var}",
-      "html" : "<p class='hello'></p>",
-      "optional" : true,
-      "locals" : {
-        "var" : "hello"
+    "Ruby-style tag with a variable attribute": {
+      "haml": "%p{:class => var}",
+      "html": "<p class='hello'></p>",
+      "optional": true,
+      "locals": {
+        "var": "hello"
       }
     },
 
-    "Ruby-style tag with a CSS class and 'class' as a variable attribute" : {
-      "haml" : ".hello{:class => var}",
-      "html" : "<div class='hello world'></div>",
-      "optional" : true,
-      "locals" : {
-        "var" : "world"
-      }
-    },
-
-    "Ruby-style tag multiple CSS classes (sorted correctly)" : {
-      "haml" : ".z{:class => var}",
-      "html" : "<div class='a z'></div>",
-      "optional" : true,
-      "locals" : {
-        "var" : "a"
+    "Ruby-style tag with a CSS class and 'class' as a variable attribute": {
+      "haml": ".hello{:class => var}",
+      "html": "<div class='hello world'></div>",
+      "optional": true,
+      "locals": {
+        "var": "world"
       }
     }
+  },
+
+  "tags with attribute refrences": {
+    "single tag with attribute hash": {
+      "haml": "%Tag[attributes]",
+      "html": "<Tag key1='value1' key2='value2'></Tag>",
+      "locals": {
+        "attributes": "key1='value1' key2='value2'"
+      }
+    },
+    "single tag with single attribute reference and inline attributes": {
+      "haml": "%Tag[attributes](key3='value3')",
+      "html": "<Tag key1='value1' key2='value2' key3='value3'></Tag>",
+      "locals": {
+        "attributes": "key1='value1' key2='value2'"
+      }
+    },
+    "single tag with attribute reference and overwritten attribute": {
+      "haml": "%Tag[attributes](key2='value3')",
+      "html": "<Tag key1='value1' key2='value3'></Tag>",
+      "locals": {
+        "attributes": "key1='value1' key2='value2'"
+      }
+    },
+    "single tag with multiple attribute references": {
+      "haml": "%Tag[group1 group2]",
+      "html": "<Tag keyA='valueA' keyB='valueB' keyZ='valueZ'></Tag>",
+      "locals": {
+        "group1": "keyA='valueA'",
+        "group2": "keyB='valueB' keyZ='valueZ'"
+      } 
+    } 
   },
 
   "silent comments" : {

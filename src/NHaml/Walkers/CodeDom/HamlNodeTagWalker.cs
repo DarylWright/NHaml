@@ -57,19 +57,19 @@ namespace NHaml.Walkers.CodeDom
         //    return classValues;
         //}
 
-        private void AppendClassAttribute(IList<HamlNodeTextContainer> classTextContainers)
-        {
-            if (!classTextContainers.Any()) return;
+        //private void AppendClassAttribute(IList<HamlNodeTextContainer> classTextContainers)
+        //{
+        //    if (!classTextContainers.Any()) return;
 
-            var classFragments = new List<HamlNode>();
-            for (int index = 0; index < classTextContainers.Count; index++)
-            {
-                if (index > 0) classFragments.Add(new HamlNodeTextLiteral(-1, " "));
-                classFragments.AddRange(classTextContainers[index].Children);
-            }
+        //    var classFragments = new List<HamlNode>();
+        //    for (int index = 0; index < classTextContainers.Count; index++)
+        //    {
+        //        if (index > 0) classFragments.Add(new HamlNodeTextLiteral(-1, " "));
+        //        classFragments.AddRange(classTextContainers[index].Children);
+        //    }
 
-            ClassBuilder.AppendAttributeNameValuePair("class", classFragments, '\'');
-        }
+        //    ClassBuilder.AppendAttributeNameValuePair("class", classFragments, '\'');
+        //}
 
         //private void MakeIdAttribute(HamlNodeTag nodeTag)
         //{
@@ -90,19 +90,19 @@ namespace NHaml.Walkers.CodeDom
         //    return idValues;
         //}
 
-        private void AppendIdAttribute(IList<HamlNodeTextContainer> idValues)
-        {
-            if (!idValues.Any()) return;
+        //private void AppendIdAttribute(IList<HamlNodeTextContainer> idValues)
+        //{
+        //    if (!idValues.Any()) return;
 
-            var idFragments = new List<HamlNode>();
-            for (int index = 0; index < idValues.Count; index++)
-            {
-                if (index > 0) idFragments.Add(new HamlNodeTextLiteral(-1, "_"));
-                idFragments.AddRange(idValues[index].Children);
-            }
+        //    var idFragments = new List<HamlNode>();
+        //    for (int index = 0; index < idValues.Count; index++)
+        //    {
+        //        if (index > 0) idFragments.Add(new HamlNodeTextLiteral(-1, "_"));
+        //        idFragments.AddRange(idValues[index].Children);
+        //    }
 
-            ClassBuilder.AppendAttributeNameValuePair("id", idFragments, '\'');
-        }
+        //    ClassBuilder.AppendAttributeNameValuePair("id", idFragments, '\'');
+        //}
 
         private void WalkHtmlStyleAttributes(HamlNodeTag nodeTag)
         {

@@ -3,6 +3,9 @@ using Microsoft.CSharp;
 
 namespace NHaml.Compilers
 {
+    /// <summary>
+    /// An implementation of <see cref="CodeDomTemplateTypeBuilder"/> that provides additional settings.
+    /// </summary>
     public class CSharp2TemplateTypeBuilder : CodeDomTemplateTypeBuilder
     {
 
@@ -10,6 +13,7 @@ namespace NHaml.Compilers
         public CSharp2TemplateTypeBuilder()
             : base(new CSharpCodeProvider())
         {
+            //TODO: Determine if the CompilerVersion "v2.0" is outdated.
             ProviderOptions.Add( "CompilerVersion", "v2.0" );
         }
 

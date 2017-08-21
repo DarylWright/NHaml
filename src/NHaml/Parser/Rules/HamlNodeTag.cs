@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using NHaml.Crosscutting;
 using NHaml.Parser.Exceptions;
 
@@ -18,7 +20,7 @@ namespace NHaml.Parser.Rules
             int pos = 0;
 
             SetNamespaceAndTagName(nodeLine.Content, ref pos);
-            ParseViewPropertyNodes(nodeLine.Content, ref pos);
+            ParseAttributeReference(nodeLine.Content, ref pos);
             ParseAttributes(nodeLine.Content, ref pos);
             ParseSpecialCharacters(nodeLine.Content, ref pos);
             HandleInlineContent(nodeLine.Content, ref pos);
@@ -40,14 +42,29 @@ namespace NHaml.Parser.Rules
             }
         }
 
-        private void ParseViewPropertyNodes(string content, ref int pos)
+        private void ParseAttributeReference(string content, ref int pos)
         {
-            while (pos < content.Length)
+            if (pos >= content.Length) return;
+
+            if (content[pos] != '[') return;
+
+            var startPos = pos;
+
+            var attrRefEndChar = ']';
+
+            for (; pos < content.Length; pos++)
             {
-                if (content[pos] == '.')
-                    ParseViewPropertyNode(content, ref pos);
-                else
+                if (content[pos] == attrRefEndChar)
+                {
+                    var attributeRef = content.Substring(startPos, pos - startPos + 1);
+
+                    AddChild(new HamlNodeXmlAttributeReferenceCollection(SourceFileLineNum, attributeRef));
+
                     return;
+                }
+
+                if (!HtmlStringHelper.IsXmlIdentifierChar(content[pos]) && content[pos] != attrRefEndChar)
+                    throw new HamlMalformedTagException($"Malformed attribute reference \"{content}\".", SourceFileLineNum);
             }
         }
 
@@ -136,31 +153,13 @@ namespace NHaml.Parser.Rules
 
             return string.IsNullOrEmpty(result) ? "div" : result;
         }
-
-        [Obsolete("Id tags are not used in XAML")]
-        private void ParseTagIdNode(string content, ref int pos)
-        {
-            pos++;
-            string tagId = GetHtmlToken(content, ref pos);
-            var newTag = new HamlNodeTagId(SourceFileLineNum, tagId);
-            AddChild(newTag);
-        }
-
-        private void ParseViewPropertyNode(string content, ref int pos)
-        {
-            pos++;
-            //TODO: Don't use GetHtmlToken to determine a valid name syntax for view properties.
-            var propertyName = GetHtmlToken(content, ref pos);
-            var newTag = new HamlNodeViewProperty(SourceFileLineNum, propertyName);
-            AddChild(newTag);
-        }
         
         private string GetHtmlToken(string content, ref int pos)
         {
             int startIndex = pos;
             while (pos < content.Length)
             {
-                if (HtmlStringHelper.IsHtmlIdentifierChar(content[pos]))
+                if (HtmlStringHelper.IsXmlIdentifierChar(content[pos]))
                     pos++;
                 else
                     break;
@@ -176,5 +175,24 @@ namespace NHaml.Parser.Rules
                     : Namespace + ":" + TagName;
             }
         }
+    }
+
+    public class HamlNodeXmlAttributeReferenceCollection : HamlNode
+    {
+        public HamlNodeXmlAttributeReferenceCollection(int sourceFileLineNum, string attributeRefs)
+            : base(sourceFileLineNum, attributeRefs)
+        {
+            if (Content[0] != '[')
+                throw new HamlMalformedTagException("AttributeReference tag must start with an opening bracket.", SourceFileLineNum);
+        }
+
+        public void ResolveAttributes(IDictionary<string, object> attributes)
+        {
+            
+        }
+
+        protected override bool IsContentGeneratingTag => false;
+
+        public bool IsResolved { get; private set; } = false;
     }
 }

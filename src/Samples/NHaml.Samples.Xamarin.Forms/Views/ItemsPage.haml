@@ -6,7 +6,7 @@
     %StackLayout
       %ListView( x:Name="ItemsListView"	ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadItemsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement" ItemSelected="OnItemSelected" )
         .ItemTemplate
-          %DataTemplate
+          %DataTemplate[DataTemplateAttrs BaseAttrs UnevenRowsWithFillAndExpandAndPullToRefresh]
             %ViewCell
               %StackLayout( Padding="10" )
                 %Label( Text="{Binding Text}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" )/

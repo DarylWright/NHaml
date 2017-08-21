@@ -14,6 +14,8 @@ namespace NHaml.TemplateResolution
         public FileTemplateContentProvider()
         {
             _pathSources = new List<string> ();
+
+            //TODO: put the path source in a constant sourced from configuration
             AddPathSource("Views");
         }
 
@@ -24,8 +26,8 @@ namespace NHaml.TemplateResolution
 
         public ViewSource GetViewSource(string templateName, IEnumerable<ViewSource> parentViewSourceList)
         {
-            Invariant.ArgumentNotEmpty(templateName, "templateName");
-            Invariant.ArgumentNotNull(parentViewSourceList, "parentViewSourceList");
+            Invariant.ArgumentNotEmpty(templateName, nameof(templateName));
+            Invariant.ArgumentNotNull(parentViewSourceList, nameof(parentViewSourceList));
             
             templateName = SuffixWithHaml(templateName);
             var fileInfo = CreateFileInfo(templateName);
@@ -53,6 +55,7 @@ namespace NHaml.TemplateResolution
 
         private static string SuffixWithHaml(string templateName)
         {
+            //TODO: Put the string ".haml" in a constant sourced from configuration
             return templateName.EndsWith(".haml")
                 ? templateName
                 : templateName + ".haml";

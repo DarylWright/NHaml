@@ -18,7 +18,7 @@ namespace NHaml.IO
 
             string indent = currentLine.Substring(0, whiteSpaceIndex);
             string content = (whiteSpaceIndex == currentLine.Length) ? "" : currentLine.Substring(whiteSpaceIndex);
-            content = AddImplicitViewTag(content);
+            //content = AddImplicitViewTag(content);
             var hamlRule = HamlRuleFactory.ParseHamlRule(ref content);
 
             var result = new List<HamlLine>();
@@ -37,7 +37,7 @@ namespace NHaml.IO
                 {
                     string subTag = line.Content.Substring(contentIndex).TrimStart();
                     line.Content = line.Content.Substring(0, contentIndex).Trim();
-                    subTag = AddImplicitViewTag(subTag);
+                    //subTag = AddImplicitViewTag(subTag);
                     var subTagRule = HamlRuleFactory.ParseHamlRule(ref subTag);
                     var subLine = new HamlLine(subTag, subTagRule, line.Indent + "\t", line.SourceFileLineNo, true);
                     ProcessInlineTags(subLine, result);
@@ -51,13 +51,13 @@ namespace NHaml.IO
             return hamlRule == HamlRuleEnum.Tag || hamlRule == HamlRuleEnum.Filter || hamlRule == HamlRuleEnum.ViewProperty;
         }
 
-        private string AddImplicitViewTag(string content)
-        {
-            if (content.Length > 1 && content.StartsWith("#{")) return content;
-            if (content.Length > 0)
-                return content[0] == '.' ? "%" + content : content;
-            return string.Empty;
-        }
+        //private string AddImplicitViewTag(string content)
+        //{
+        //    if (content.Length > 1 && content.StartsWith("#{")) return content;
+        //    if (content.Length > 0)
+        //        return content[0] == '.' ? "%" + content : content;
+        //    return string.Empty;
+        //}
 
         internal int GetEndOfTagIndex(string currentLine)
         {

@@ -9,13 +9,12 @@ namespace NHaml.TemplateResolution
 
         public FileViewSource(FileInfo fileInfo)
         {
-            if (fileInfo == null) throw new ArgumentNullException("fileInfo");
+            if (fileInfo == null) throw new ArgumentNullException(nameof(fileInfo));
 
             fileInfo.Refresh();
-            if (!fileInfo.Exists)
-            {
-                throw new FileNotFoundException("FileNotFound", fileInfo.FullName);
-            }
+
+            if (!fileInfo.Exists) throw new FileNotFoundException("FileNotFound", fileInfo.FullName);
+            
             _fileInfo = fileInfo;
         }
 
@@ -24,22 +23,10 @@ namespace NHaml.TemplateResolution
             return new StreamReader(_fileInfo.FullName);
         }
 
-        public override string FilePath
-        {
-            get { return _fileInfo.FullName; }
-        }
+        public override string FilePath => _fileInfo.FullName;
 
-        public override string FileName
-        {
-            get
-            {
-                return _fileInfo.Name;
-            }
-        }
+        public override string FileName => _fileInfo.Name;
 
-        public override DateTime TimeStamp
-        {
-            get { return File.GetLastWriteTime(FilePath); }
-        }
+        public override DateTime TimeStamp => File.GetLastWriteTime(FilePath);
     }
 }

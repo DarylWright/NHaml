@@ -10,6 +10,6 @@ namespace NHaml.Parser.Rules
             throw new NotImplementedException();
         }
 
-        protected override bool IsContentGeneratingTag => true;
+        protected override bool IsContentGeneratingTag => false;
     }
 }

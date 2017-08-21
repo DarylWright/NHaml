@@ -5,6 +5,9 @@ using NHaml.Crosscutting;
 
 namespace NHaml.TemplateBase
 {
+    /// <summary>
+    /// This is the base class for dynamic Haml templates.
+    /// </summary>
     public abstract class Template
     {
         // ReSharper disable UnusedMember.Global
@@ -35,6 +38,13 @@ namespace NHaml.TemplateBase
             CoreRender(writer);
         }
 
+        /// <summary>
+        /// Handles the core rendering for the Haml template.
+        /// </summary>
+        /// <remarks>
+        /// This method gets overriden by the dynamic <see cref="Template"/> subclass.
+        /// </remarks>
+        /// <param name="textWriter">The <see cref="TextWriter"/> this method renders to.</param>
         protected virtual void CoreRender(TextWriter textWriter)
         {
         }

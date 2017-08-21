@@ -4,6 +4,9 @@ using System.Reflection.Emit;
 
 namespace NHaml.Compilers
 {
+    /// <summary>
+    /// This class compiles a <see cref="T:Template"/>
+    /// </summary>
     public class CodeDomTemplateCompiler : ITemplateFactoryCompiler
     {
         private readonly ITemplateTypeBuilder _typeBuilder;
@@ -43,6 +46,7 @@ namespace NHaml.Compilers
             if (result.Contains(typeof(TemplateBase.Template).Assembly.Location) == false)
                 result.Add(typeof(TemplateBase.Template).Assembly.Location);
 
+            //TODO: May need to include types relevant to Xamarin Forms. Might not need this HttpUtility reference.
             if (result.Contains(typeof(System.Web.HttpUtility).Assembly.Location) == false)
                 result.Add(typeof(System.Web.HttpUtility).Assembly.Location);
 

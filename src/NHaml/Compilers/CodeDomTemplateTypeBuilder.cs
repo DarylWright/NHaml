@@ -10,6 +10,10 @@ using NHaml.Compilers.Exceptions;
 
 namespace NHaml.Compilers
 {
+    /// <summary>
+    /// This class is responsible for providing the base functionality for building a <see cref="Type"/> representation
+    /// for a Haml document.
+    /// </summary>
     public abstract class CodeDomTemplateTypeBuilder : ITemplateTypeBuilder
     {
         private readonly CodeDomProvider _codeDomProvider;
@@ -44,7 +48,7 @@ namespace NHaml.Compilers
                 writer.Write(source);
             }
 
-            //TODO: when we move to vs2010 fully this ebcomes redundant as it will load the debug info for an in memory assembly.
+            //TODO: when we move to vs2010 fully this becomes redundant as it will load the debug info for an in memory assembly.
             var tempFileName = Path.GetTempFileName();
             var tempAssemblyName = new FileInfo(Path.Combine(directoryInfo.FullName, tempFileName + ".dll"));
             var tempSymbolsName = new FileInfo(Path.Combine(directoryInfo.FullName, tempFileName + ".pdb"));
@@ -81,7 +85,13 @@ namespace NHaml.Compilers
             return ExtractType(typeName, assembly);
         }
 
-        private void ValidateCompilerResults(CompilerResults compilerResults, string source)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="compilerResults"></param>
+        /// <param name="source"></param>
+        /// <exception cref="CompilerException">Thrown when the <paramref name="compilerResults"/> contains errors.</exception>
+        private static void ValidateCompilerResults(CompilerResults compilerResults, string source)
         {
             if (ContainsErrors(compilerResults))
             {
@@ -89,7 +99,12 @@ namespace NHaml.Compilers
             }
         }
 
-        private void AddReferences(CompilerParameters parameters, IEnumerable<string> referencedAssemblyLocations)
+        /// <summary>
+        /// Adds refrences to the <see cref="CompilerParameters"/> used to build the <see cref="Type"/> of the Haml template.
+        /// </summary>
+        /// <param name="parameters">The object representing the compiler parameters for the Haml template.</param>
+        /// <param name="referencedAssemblyLocations">The location of the assemblies to reference in the Haml template class.</param>
+        private static void AddReferences(CompilerParameters parameters, IEnumerable<string> referencedAssemblyLocations)
         {
             parameters.ReferencedAssemblies.Clear();
 
@@ -99,9 +114,15 @@ namespace NHaml.Compilers
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="FileInfo"/> for the Haml template source file while ensuring no existing file exists.
+        /// </summary>
+        /// <param name="directoryInfo">The representation of the location of the Haml template source file.</param>
+        /// <param name="typeName">The name of the type whose <see cref="FileInfo"/> gets returned.</param>
+        /// <returns></returns>
         private FileInfo GetClassFileInfo(FileSystemInfo directoryInfo, string typeName)
         {
-            var fileInfo = new FileInfo(string.Format("{0}\\{1}.{2}", directoryInfo.FullName, typeName, _codeDomProvider.FileExtension));
+            var fileInfo = new FileInfo($"{directoryInfo.FullName}\\{typeName}.{_codeDomProvider.FileExtension}");
             if (fileInfo.Exists)
             {
                 fileInfo.Delete();
@@ -109,6 +130,10 @@ namespace NHaml.Compilers
             return fileInfo;
         }
 
+        /// <summary>
+        /// Gets the temp folder for Haml template source files.
+        /// </summary>
+        /// <returns>The <see cref="DirectoryInfo"/> for the temp folder.</returns>
         private static DirectoryInfo GetNHamlTempDirectoryInfo()
         {
             var codeBase = Assembly.GetExecutingAssembly().GetName().CodeBase.Remove(0, 8);
@@ -120,18 +145,30 @@ namespace NHaml.Compilers
             {
                 directoryInfo.Create();
             }
-            Debug.WriteLine(string.Format("NHaml temp directory is '{0}'.", directoryInfo.FullName));
+            Debug.WriteLine($"NHaml temp directory is '{directoryInfo.FullName}'.");
             return directoryInfo;
         }
 
         protected abstract bool SupportsDebug();
 
-        private Type ExtractType(string typeName, Assembly assembly)
+        /// <summary>
+        /// Gets the <see cref="Type"/> representation of the class identifier <see cref="string"/> <paramref name="typeName"/> from
+        /// the <see cref="Assembly"/> <paramref name="assembly"/>.
+        /// </summary>
+        /// <param name="typeName">The name of the type to extract from the <paramref name="assembly"/>.</param>
+        /// <param name="assembly">The <see cref="Assembly"/> to extract the <param name="typeName"> class from.</param></param>
+        /// <returns>The <see cref="Type"/> representation of the <paramref name="typeName"/> value.</returns>
+        private static Type ExtractType(string typeName, Assembly assembly)
         {
             return assembly.GetType(typeName);
         }
 
-        private bool ContainsErrors(CompilerResults results)
+        /// <summary>
+        /// Determines if the results of compilation contains errors.
+        /// </summary>
+        /// <param name="results">The <see cref="CompilerResults"/> to examine.</param>
+        /// <returns>True if <paramref name="results"/> contains a non-warning error, false otherwise.</returns>
+        private static bool ContainsErrors(CompilerResults results)
         {
             return results.Errors.Cast<CompilerError>()
                 .Any(error => error.IsWarning == false);

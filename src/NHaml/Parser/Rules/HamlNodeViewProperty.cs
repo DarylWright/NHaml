@@ -1,11 +1,18 @@
+using NHaml.IO;
+
 namespace NHaml.Parser.Rules
 {
     public class HamlNodeViewProperty : HamlNode
     {
-        public HamlNodeViewProperty(int sourceFileLineNo, string className)
-            : base(sourceFileLineNo, className)
-        { }
+        public HamlNodeViewProperty(HamlLine nodeLine)
+            : base(nodeLine)
+        {
+            var tag = new HamlNodeTag(nodeLine);
 
-        protected override bool IsContentGeneratingTag => true;
+            tag.
+            AddChild();
+        }
+
+        protected override bool IsContentGeneratingTag => false;
     }
 }

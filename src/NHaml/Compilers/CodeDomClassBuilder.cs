@@ -11,22 +11,34 @@ using Microsoft.CSharp;
 
 namespace NHaml.Compilers
 {
+    /// <summary>
+    /// This class is responsible for building the <see cref="TemplateBase.Template"/> subclasses.
+    /// </summary>
+    /// <remarks>
+    /// This class has implicit coupling to <see cref="TemplateBase.Template"/>.
+    /// </remarks>
     public class CodeDomClassBuilder : ITemplateClassBuilder
     {
+        /// <summary>
+        /// The name of the <see cref="RenderMethod"/> method parameter.
+        /// </summary>
         private const string TextWriterVariableName = "textWriter";
 
-        private CodeMemberMethod RenderMethod { get; set; }
+        /// <summary>
+        /// The core rendering method to be built for the dynamic Haml template.
+        /// </summary>
+        private CodeMemberMethod RenderMethod { get; }
 
         public CodeDomClassBuilder()
         {
-            // ReSharper disable BitwiseOperatorOnEnumWihtoutFlags
             RenderMethod = new CodeMemberMethod
                                {
+                                   //TODO: Not a fan of the coupling to the string name "CoreRender". Leaving as is until there's a better solution.
                                    Name = "CoreRender",
+                                   // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
                                    Attributes = MemberAttributes.Override | MemberAttributes.Family,
                                }
                                .WithParameter(typeof(TextWriter), "textWriter");
-            // ReSharper restore BitwiseOperatorOnEnumWihtoutFlags
         }
 
         public void RenderEndBlock()
@@ -39,7 +51,7 @@ namespace NHaml.Compilers
             AppendCodeSnippet("{//");
         }
 
-        private IEnumerable<string> MergeRequiredImports(IEnumerable<string> imports)
+        private static IEnumerable<string> MergeRequiredImports(IEnumerable<string> imports)
         {
             var result = new List<string>(imports);
             if (result.Contains("System") == false)
@@ -47,6 +59,10 @@ namespace NHaml.Compilers
             return result;
         }
 
+        /// <summary>
+        /// Adds an expression statement to the <see cref="RenderMethod"/> that writes to its TextWriter parameter.
+        /// </summary>
+        /// <param name="line">The <paramref name="line"/> that is to be written in the <see cref="RenderMethod"/>.</param>
         public void Append(string line)
         {
             var writeInvoke = CodeDomFluentBuilder
@@ -56,11 +72,19 @@ namespace NHaml.Compilers
             RenderMethod.AddExpressionStatement(writeInvoke);
         }
 
+        /// <summary>
+        /// Calls <see cref="Append"/> with a formatted string and parameters.
+        /// </summary>
+        /// <param name="content">The string format template.</param>
+        /// <param name="args">Parameters for the string template.</param>
         public void AppendFormat(string content, params object[] args)
         {
             Append(string.Format(content, args));
         }
 
+        /// <summary>
+        /// Adds an expression statement to the <see cref="RenderMethod"/> that writes a new line to its TextWriter parameter.
+        /// </summary>
         public void AppendNewLine()
         {
             var writeInvoke = CodeDomFluentBuilder
@@ -69,6 +93,7 @@ namespace NHaml.Compilers
 
             RenderMethod.AddExpressionStatement(writeInvoke);
         }
+
 
         public void AppendCodeToString(string code)
         {
@@ -108,6 +133,8 @@ namespace NHaml.Compilers
 
         private void WriteNewLineIfRepeated()
         {
+            //TODO: This is an implicit coupling to the Template.WriteNewLineIfRepeated(TextWriter) method. Need to guard
+            //      against refactorings and also allow extensibility for other base types if necessary.
             AppendCodeSnippet("WriteNewLineIfRepeated(textWriter)");
         }
 
@@ -232,6 +259,13 @@ namespace NHaml.Compilers
             return Build(className, typeof(TemplateBase.Template), new List<string>());
         }
 
+        /// <summary>
+        /// Builds a source file for the <paramref name="className"/> class.
+        /// </summary>
+        /// <param name="className">The name of the class to create</param>
+        /// <param name="baseType">The base type of <paramref name="className"/>.</param>
+        /// <param name="imports">A list of namespace references to import in the returned source file.</param>
+        /// <returns>A string representation of the <paramref name="className"/> source file.</returns>
         public string Build(string className, Type baseType, IEnumerable<string> imports)
         {
             imports = MergeRequiredImports(imports);

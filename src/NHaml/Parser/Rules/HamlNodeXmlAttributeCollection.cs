@@ -11,7 +11,7 @@ namespace NHaml.Parser.Rules
             
         {
             if (Content[0] != '(' && Content[0] != '{')
-                throw new HamlMalformedTagException("AttributeCollection tag must start with an opening bracket or curly bracket.", SourceFileLineNum);
+                throw new HamlMalformedTagException("AttributeCollection tag must start with an opening parentheses or curly bracket.", SourceFileLineNum);
 
             ParseChildren(attributeCollection);
         }
