@@ -10,6 +10,7 @@ using System.IO;
 namespace NHaml.IntegrationTests
 {
     [TestFixture]
+    // ReSharper disable once InconsistentNaming
     public class CodeDomClassBuilder_IntegrationTests
     {
         const string ClassName = "Class1";
@@ -48,7 +49,7 @@ namespace NHaml.IntegrationTests
                                  };
 
             var writer = new StringWriter();
-            result.Render(writer, HtmlVersion.XHtml, dictionary);
+            result.Render(writer, XmlVersion.XHtml, dictionary);
             Assert.That(writer.ToString(), Is.EqualTo(" name=\"valueResultvalue\""));
         }
 
@@ -62,7 +63,7 @@ namespace NHaml.IntegrationTests
             var result = GenerateTemplateFromSource(templateSource);
 
             var writer = new StringWriter();
-            result.Render(writer, HtmlVersion.XHtml);
+            result.Render(writer, XmlVersion.XHtml);
             Assert.That(writer.ToString(), Is.EqualTo(" name=\"value\" name=\"value\""));
         }
 
@@ -77,7 +78,7 @@ namespace NHaml.IntegrationTests
             var result = GenerateTemplateFromSource(templateSource);
 
             var writer = new StringWriter();
-            result.Render(writer, HtmlVersion.XHtml);
+            result.Render(writer, XmlVersion.XHtml);
             Assert.That(writer.ToString(), Is.EqualTo("Test\r\nTest\r\nTest"));
         }
 

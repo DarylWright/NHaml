@@ -118,12 +118,12 @@
     <Compile Include="Parser\Rules\HamlNodeCode.cs" />
     <Compile Include="Parser\Rules\HamlNodeTextVariable.cs" />
     <Compile Include="Parser\Rules\HamlNodeTextLiteral.cs" />
-    <Compile Include="TemplateBase\HtmlVersion.cs" />
+    <Compile Include="TemplateBase\XmlVersion.cs" />
     <Compile Include="TemplateFactoryFactory.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Compilers\CodeDomClassBuilder.cs" />
-    <Compile Include="Compilers\CodeDomFluentBuilder.cs" />
+    <Compile Include="Compilers\CodeMethodInvokeFluentBuilder.cs" />
     <Compile Include="Compilers\CodeDomTemplateCompiler.cs" />
     <Compile Include="Compilers\CodeDomTemplateTypeBuilder.cs" />
     <Compile Include="Compilers\ITemplateClassBuilder.cs" />

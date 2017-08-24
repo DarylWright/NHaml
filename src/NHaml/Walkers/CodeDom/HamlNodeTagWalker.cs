@@ -7,12 +7,19 @@ using NHaml.Parser.Rules;
 
 namespace NHaml.Walkers.CodeDom
 {
+    /// <summary>
+    /// Haml node walker for <see cref="HamlNodeTag"/> nodes.
+    /// </summary>
     public class HamlNodeTagWalker : HamlNodeWalker
     {
         public HamlNodeTagWalker(ITemplateClassBuilder classBuilder, HamlHtmlOptions options)
             : base(classBuilder, options)
         { }
 
+        /// <summary>
+        /// Walks through a <see cref="HamlNodeTag"/> node.
+        /// </summary>
+        /// <param name="node">The <see cref="HamlNodeTag"/> node to be rendered to the template class builder.</param>
         public override void Walk(HamlNode node)
         {
             var nodeTag = node as HamlNodeTag;

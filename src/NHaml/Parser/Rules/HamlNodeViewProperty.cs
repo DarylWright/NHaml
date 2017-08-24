@@ -9,8 +9,8 @@ namespace NHaml.Parser.Rules
         {
             var tag = new HamlNodeTag(nodeLine);
 
-            tag.
-            AddChild();
+            //TODO: Ensure the tag name represents the format in the Xaml file (e.g. ParentTagName.ThisTagName)
+            AddChild(tag);
         }
 
         protected override bool IsContentGeneratingTag => false;

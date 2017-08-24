@@ -4,9 +4,9 @@ using System.CodeDom;
 namespace NHaml.Compilers
 {
     /// <summary>
-    /// This is a wrapper class for fluently building 
+    /// Provides methods that abstracts the creation of <see cref="CodeMethodInvokeExpression"/> objects.
     /// </summary>
-    internal static class CodeDomFluentBuilder
+    internal static class CodeMethodInvokeFluentBuilder
     {
         /// <summary>
         /// Creates a method invocation expression that calls the <paramref name="methodName"/> of the <paramref name="targetObject"/>.
@@ -44,7 +44,13 @@ namespace NHaml.Compilers
             };
             return result;
         }
+    }
 
+    /// <summary>
+    /// Provides methods that abstract the creation of <see cref="CodeVariableDeclarationStatement"/> objects.
+    /// </summary>
+    internal static class CodeVariableDeclarationFluentBuilder
+    {
         /// <summary>
         /// Creates a variable declaration statement.
         /// </summary>
@@ -56,7 +62,13 @@ namespace NHaml.Compilers
         {
             return new CodeVariableDeclarationStatement(type, name, valueExpression);
         }
+    }
 
+    /// <summary>
+    /// Contains extension methods for the <see cref="CodeMethodInvokeExpression"/> class that simplifies building their instances.
+    /// </summary>
+    internal static class CodeMethodInvokeExpressionExtensions
+    {
         /// <summary>
         /// Adds parameter to a <see cref="CodeMethodInvokeExpression"/> fluently.
         /// </summary>
@@ -93,38 +105,79 @@ namespace NHaml.Compilers
         public static CodeMethodInvokeExpression WithInvokeCodeSnippetToStringParameter(this CodeMethodInvokeExpression expression,
             string codeSnippet)
         {
-            return WithParameter(expression, 
-                GetCodeMethodInvokeExpression("ToString", "Convert").WithCodeSnippetParameter(codeSnippet));
+            return WithParameter(expression,
+                CodeMethodInvokeFluentBuilder.GetCodeMethodInvokeExpression("ToString", "Convert").WithCodeSnippetParameter(codeSnippet));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="codeSnippet"></param>
+        /// <returns></returns>
         public static CodeMethodInvokeExpression WithCodeSnippetParameter(this CodeMethodInvokeExpression expression,
             string codeSnippet)
         {
             return WithParameter(expression, new CodeSnippetExpression(codeSnippet));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="expressionToInvoke"></param>
+        /// <returns></returns>
         public static CodeMethodInvokeExpression WithInvokeCodeParameter(this CodeMethodInvokeExpression expression,
             CodeMethodInvokeExpression expressionToInvoke)
         {
             return WithParameter(expression, expressionToInvoke);
         }
+    }
 
-        private static CodeExpressionStatement GetExpressionStatement(CodeMethodInvokeExpression writeInvoke)
-        {
-            return new CodeExpressionStatement { Expression = writeInvoke };
-        }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    internal static class CodeMemberMethodExtensions
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static CodeMemberMethod WithParameter(this CodeMemberMethod method, Type type, string name)
         {
             method.Parameters.Add(new CodeParameterDeclarationExpression(type, name));
             return method;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="expression"></param>
         public static void AddExpressionStatement(this CodeMemberMethod method, CodeMethodInvokeExpression expression)
         {
             method.Statements.Add(GetExpressionStatement(expression));
         }
 
+        // ReSharper disable once SuggestBaseTypeForParameter
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writeInvoke"></param>
+        /// <returns></returns>
+        private static CodeExpressionStatement GetExpressionStatement(CodeMethodInvokeExpression writeInvoke)
+        {
+            return new CodeExpressionStatement { Expression = writeInvoke };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="statement"></param>
         public static void AddStatement(this CodeMemberMethod method, CodeStatement statement)
         {
             method.Statements.Add(statement);

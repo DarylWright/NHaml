@@ -15,10 +15,10 @@ namespace NHaml.TemplateBase
             base.Render(writer);
         }
 
-        public void Render(TextWriter writer, T model, HtmlVersion htmlVersion)
+        public void Render(TextWriter writer, T model, XmlVersion xmlVersion)
         {
             Model = model;
-            base.Render(writer, htmlVersion);
+            base.Render(writer, xmlVersion);
         }
 
         // ReSharper restore VirtualMemberNeverOverriden.Global

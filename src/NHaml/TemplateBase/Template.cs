@@ -15,24 +15,39 @@ namespace NHaml.TemplateBase
         // ReSharper disable VirtualMemberNeverOverriden.Global
         public IDictionary<string, object> ViewData { get; set; }
 
-        private HtmlVersion _htmlVersion;
+        private XmlVersion _xmlVersion;
         protected bool HasCodeBlockRepeated;
 
+        /// <summary>
+        /// Renders the Haml document to the <see cref="TextWriter"/> <paramref name="writer"/>.
+        /// </summary>
+        /// <param name="writer">The <see cref="TextWriter"/> this method renders to.</param>
         public void Render(TextWriter writer)
         {
             //TODO: HtmlVersion is not relevant to Xaml
-            Render(writer, HtmlVersion.XHtml, ViewData ?? new Dictionary<string, object>());
+            Render(writer, XmlVersion.XHtml, ViewData ?? new Dictionary<string, object>());
         }
 
-        public void Render(TextWriter writer, HtmlVersion htmlVersion)
+        /// <summary>
+        /// Renders the Haml document to the <see cref="TextWriter"/> <paramref name="writer"/>.
+        /// </summary>
+        /// <param name="writer">The <see cref="TextWriter"/> this method renders to.</param>
+        /// <param name="xmlVersion"></param>
+        public void Render(TextWriter writer, XmlVersion xmlVersion)
         {
-            Render(writer, htmlVersion, ViewData ?? new Dictionary<string, object>());
+            Render(writer, xmlVersion, ViewData ?? new Dictionary<string, object>());
         }
 
-        public void Render(TextWriter writer, HtmlVersion htmlVersion, IDictionary<string, object> viewData)
+        /// <summary>
+        /// Renders the Haml document to the <see cref="TextWriter"/> <paramref name="writer"/>.
+        /// </summary>
+        /// <param name="writer">The <see cref="TextWriter"/> this method renders to.</param>
+        /// <param name="xmlVersion"></param>
+        /// <param name="viewData"></param>
+        public void Render(TextWriter writer, XmlVersion xmlVersion, IDictionary<string, object> viewData)
         {
             Invariant.ArgumentNotNull(writer, "textWriter");
-            _htmlVersion = htmlVersion;
+            _xmlVersion = xmlVersion;
             ViewData = viewData;
             HasCodeBlockRepeated = false;
             CoreRender(writer);
@@ -61,7 +76,7 @@ namespace NHaml.TemplateBase
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(value) || value.ToLower() == "false")
                 return "";
             if (value.ToLower() == "true" || string.IsNullOrEmpty(value))
-                return _htmlVersion == HtmlVersion.XHtml
+                return _xmlVersion == XmlVersion.XHtml
                            ? " " + name + "=" + quoteToUse + name + quoteToUse
                            : " " + name;
             return " " + name + "=" + quoteToUse + value + quoteToUse;
@@ -69,7 +84,7 @@ namespace NHaml.TemplateBase
 
         protected string AppendSelfClosingTagSuffix()
         {
-            //return _htmlVersion == HtmlVersion.XHtml ? " />" : ">";
+            //return _xmlVersion == XmlVersion.XHtml ? " />" : ">";
             return " />";
         }
 
@@ -78,9 +93,9 @@ namespace NHaml.TemplateBase
             ViewData = viewData;
         }
 
-        public void SetHtmlVersion(HtmlVersion htmlVersion)
+        public void SetHtmlVersion(XmlVersion xmlVersion)
         {
-            _htmlVersion = htmlVersion;
+            _xmlVersion = xmlVersion;
         }
 
         public void WriteNewLineIfRepeated(TextWriter writer)
@@ -91,7 +106,7 @@ namespace NHaml.TemplateBase
 
         public string GetDocType(string docTypeId)
         {
-            return DocTypeFactory.GetDocType(docTypeId, _htmlVersion);
+            return DocTypeFactory.GetDocType(docTypeId, _xmlVersion);
         }
         // ReSharper restore VirtualMemberNeverOverriden.Global
         // ReSharper restore UnusedMember.Global

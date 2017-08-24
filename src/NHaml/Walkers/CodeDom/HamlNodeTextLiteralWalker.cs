@@ -4,12 +4,19 @@ using NHaml.Parser.Rules;
 
 namespace NHaml.Walkers.CodeDom
 {
+    /// <summary>
+    /// Haml node walker for <see cref="HamlNodeTextLiteral"/> nodes.
+    /// </summary>
     public sealed class HamlNodeTextLiteralWalker : HamlNodeWalker
     {
         public HamlNodeTextLiteralWalker(ITemplateClassBuilder classBuilder, HamlHtmlOptions options)
             : base(classBuilder, options)
         { }
 
+        /// <summary>
+        /// Walks through a <see cref="HamlNodeTextLiteral"/> node.
+        /// </summary>
+        /// <param name="node">The <see cref="HamlNodeTextLiteral"/> node to be rendered to the template class builder.</param>
         public override void Walk(HamlNode node)
         {
             var nodeText = node as HamlNodeTextLiteral;
@@ -27,14 +34,14 @@ namespace NHaml.Walkers.CodeDom
         private static string HandleTrailingWhitespace(HamlNode node, string outputText)
         {
             if (node.Parent.IsTrailingWhitespaceTrimmed)
-                outputText = outputText.TrimEnd(new[] { ' ', '\n', '\r', '\t' });
+                outputText = outputText.TrimEnd(' ', '\n', '\r', '\t');
             return outputText;
         }
 
         private static string HandleLeadingWhitespace(HamlNode node, string outputText)
         {
             if (node.Parent.IsLeadingWhitespaceTrimmed)
-                outputText = outputText.TrimStart(new[] { ' ', '\n', '\r', '\t' });
+                outputText = outputText.TrimStart(' ', '\n', '\r', '\t');
             return outputText;
         }
     }

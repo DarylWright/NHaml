@@ -34,23 +34,35 @@ namespace NHaml.Compilers
             RenderMethod = new CodeMemberMethod
                                {
                                    //TODO: Not a fan of the coupling to the string name "CoreRender". Leaving as is until there's a better solution.
+                                   //TODO: This looks like a good candidate for an interface that contains the CoreRender method. Reflection of the method name makes this regression-safe.
                                    Name = "CoreRender",
                                    // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
                                    Attributes = MemberAttributes.Override | MemberAttributes.Family,
                                }
-                               .WithParameter(typeof(TextWriter), "textWriter");
+                               .WithParameter(typeof(TextWriter), TextWriterVariableName);
         }
 
+        /// <summary>
+        /// Renders the end of a code block to the <see cref="RenderMethod"/>.
+        /// </summary>
         public void RenderEndBlock()
         {
             AppendCodeSnippet("}//");
         }
 
+        /// <summary>
+        /// Renders the beginning of a code block to the <see cref="RenderMethod"/>.
+        /// </summary>
         private void RenderBeginBlock()
         {
             AppendCodeSnippet("{//");
         }
 
+        /// <summary>
+        /// Merges a list of namespace imports to add
+        /// </summary>
+        /// <param name="imports"></param>
+        /// <returns></returns>
         private static IEnumerable<string> MergeRequiredImports(IEnumerable<string> imports)
         {
             var result = new List<string>(imports);
@@ -65,7 +77,7 @@ namespace NHaml.Compilers
         /// <param name="line">The <paramref name="line"/> that is to be written in the <see cref="RenderMethod"/>.</param>
         public void Append(string line)
         {
-            var writeInvoke = CodeDomFluentBuilder
+            var writeInvoke = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
                 .WithInvokePrimitiveParameter(line);
 
@@ -87,7 +99,7 @@ namespace NHaml.Compilers
         /// </summary>
         public void AppendNewLine()
         {
-            var writeInvoke = CodeDomFluentBuilder
+            var writeInvoke = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("WriteLine", TextWriterVariableName)
                 .WithInvokePrimitiveParameter("");
 
@@ -97,14 +109,19 @@ namespace NHaml.Compilers
 
         public void AppendCodeToString(string code)
         {
-            var writeInvoke = CodeDomFluentBuilder
+            var writeInvoke = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
                 .WithInvokeCodeSnippetToStringParameter(code);
 
             RenderMethod.AddExpressionStatement(writeInvoke);
         }
 
-        public void AppendCodeSnippet(string code, bool containsChildren)
+        /// <summary>
+        /// Appends a <see cref="CodeSnippetExpression"/> to the <see cref="RenderMethod"/>.
+        /// </summary>
+        /// <param name="code">The code snippet as a string to append.</param>
+        /// <param name="containsChildren"></param>
+        public void AppendCodeSnippet(string code, bool containsChildren = false)
         {
             if (containsChildren)
             {
@@ -117,7 +134,8 @@ namespace NHaml.Compilers
             }
             else
             {
-                AppendCodeSnippet(code);
+                RenderMethod.Statements.Add(
+                    new CodeSnippetExpression { Value = code });
             }
         }
 
@@ -131,6 +149,7 @@ namespace NHaml.Compilers
             AppendCodeSnippet("HasCodeBlockRepeated = false;");
         }
 
+
         private void WriteNewLineIfRepeated()
         {
             //TODO: This is an implicit coupling to the Template.WriteNewLineIfRepeated(TextWriter) method. Need to guard
@@ -140,30 +159,24 @@ namespace NHaml.Compilers
 
         public void AppendDocType(string docTypeId)
         {
-            var docType = CodeDomFluentBuilder
+            var docType = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("GetDocType")
                 .WithInvokePrimitiveParameter(docTypeId);
 
-            var writeInvoke = CodeDomFluentBuilder
+            var writeInvoke = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
                 .WithInvokeCodeParameter(docType);
 
             RenderMethod.AddExpressionStatement(writeInvoke);
         }
 
-        private void AppendCodeSnippet(string code)
-        {
-            RenderMethod.Statements.Add(
-                new CodeSnippetExpression { Value = code });
-        }
-
         public void AppendVariable(string variableName)
         {
-            var renderValueOrKeyAsString = CodeDomFluentBuilder
+            var renderValueOrKeyAsString = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("RenderValueOrKeyAsString")
                 .WithInvokePrimitiveParameter(variableName);
 
-            var writeInvoke = CodeDomFluentBuilder
+            var writeInvoke = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
                 .WithInvokeCodeParameter(renderValueOrKeyAsString);
 
@@ -193,7 +206,7 @@ namespace NHaml.Compilers
         private void AppendAttributeWithoutValue(string name)
         {
             RenderMethod.AddExpressionStatement(
-                CodeDomFluentBuilder.GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
+                CodeMethodInvokeFluentBuilder.GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
                     .WithInvokePrimitiveParameter(" " + name));
         }
 
@@ -201,7 +214,7 @@ namespace NHaml.Compilers
         {
             string variableName = "value_" + RenderMethod.Statements.Count;
             RenderMethod.AddStatement(
-                CodeDomFluentBuilder.GetDeclaration(typeof (StringBuilder), variableName,
+                CodeVariableDeclarationFluentBuilder.GetDeclaration(typeof (StringBuilder), variableName,
                                                     new CodeObjectCreateExpression("System.Text.StringBuilder",
                                                                                    new CodeExpression[] {})));
 
@@ -212,12 +225,12 @@ namespace NHaml.Compilers
                 {
                     string nodeVariableName = ((HamlNodeTextVariable) fragment).VariableName;
                     if (nodeVariableName.All(ch => Char.IsLetterOrDigit(ch)))
-                        parameter = CodeDomFluentBuilder.GetCodeMethodInvokeExpression(
+                        parameter = CodeMethodInvokeFluentBuilder.GetCodeMethodInvokeExpression(
                             "base.RenderValueOrKeyAsString")
                             .WithInvokePrimitiveParameter(nodeVariableName);
                     else
                     {
-                        parameter = CodeDomFluentBuilder.GetCodeMethodInvokeExpression("ToString", "Convert")
+                        parameter = CodeMethodInvokeFluentBuilder.GetCodeMethodInvokeExpression("ToString", "Convert")
                             .WithCodeSnippetParameter(nodeVariableName);
                     }
                 }
@@ -227,27 +240,27 @@ namespace NHaml.Compilers
                 }
 
                 RenderMethod.AddExpressionStatement(
-                    CodeDomFluentBuilder.GetCodeMethodInvokeExpression("Append", variableName)
+                    CodeMethodInvokeFluentBuilder.GetCodeMethodInvokeExpression("Append", variableName)
                         .WithParameter(parameter));
             }
 
-            var outputExpression = CodeDomFluentBuilder
+            var outputExpression = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("base.RenderAttributeNameValuePair")
                 .WithInvokePrimitiveParameter(name)
-                .WithParameter(CodeDomFluentBuilder.GetCodeMethodInvokeExpression("ToString", variableName))
+                .WithParameter(CodeMethodInvokeFluentBuilder.GetCodeMethodInvokeExpression("ToString", variableName))
                 .WithInvokePrimitiveParameter(quoteToUse);
 
             RenderMethod.AddExpressionStatement(
-                CodeDomFluentBuilder.GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
+                CodeMethodInvokeFluentBuilder.GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
                     .WithParameter(outputExpression));
         }
 
         public void AppendSelfClosingTagSuffix()
         {
-            var renderValueOrKeyAsString = CodeDomFluentBuilder
+            var renderValueOrKeyAsString = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("base.AppendSelfClosingTagSuffix");
 
-            var writeInvoke = CodeDomFluentBuilder
+            var writeInvoke = CodeMethodInvokeFluentBuilder
                 .GetCodeMethodInvokeExpression("Write", TextWriterVariableName)
                 .WithInvokeCodeParameter(renderValueOrKeyAsString);
 

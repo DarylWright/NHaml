@@ -73,14 +73,14 @@ namespace HamlSpec
             Assert.That(output.ToString(), Is.EqualTo(test.ExpectedHtml), message);
         }
 
-        private HtmlVersion GetHtmlVersion(string htmlFormat)
+        private XmlVersion GetHtmlVersion(string htmlFormat)
         {
             if (htmlFormat == "html4")
-                return HtmlVersion.Html4;
+                return XmlVersion.Html4;
             else if (htmlFormat == "html5")
-                return HtmlVersion.Html5;
+                return XmlVersion.Html5;
 
-            return HtmlVersion.XHtml;
+            return XmlVersion.XHtml;
         }
 
         private Template CreateTemplate(string hamlTemplate)

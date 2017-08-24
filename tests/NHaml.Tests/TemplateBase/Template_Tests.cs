@@ -24,9 +24,9 @@ namespace NHaml.Tests.TemplateBase
                 return base.RenderAttributeNameValuePair(name, value, quoteToUse);
             }
 
-            public string AppendSelfClosingTagSuffix(HtmlVersion htmlVersion)
+            public string AppendSelfClosingTagSuffix(XmlVersion xmlVersion)
             {
-                base.SetHtmlVersion(htmlVersion);
+                base.SetHtmlVersion(xmlVersion);
                 return base.AppendSelfClosingTagSuffix();
             }
         }
@@ -63,19 +63,19 @@ namespace NHaml.Tests.TemplateBase
         }
 
         [Test]
-        [TestCase("checked", "true", HtmlVersion.XHtml, " checked=\"checked\"")]
-        [TestCase("checked", "TRUE", HtmlVersion.XHtml, " checked=\"checked\"")]
-        [TestCase("checked", "", HtmlVersion.XHtml, "")]
-        [TestCase("checked", "false", HtmlVersion.XHtml, "")]
-        [TestCase("checked", "FALSE", HtmlVersion.XHtml, "")]
-        [TestCase("checked", "true", HtmlVersion.Html5, " checked")]
-        [TestCase("checked", "", HtmlVersion.Html5, "")]
-        [TestCase("checked", "true", HtmlVersion.Html4, " checked")]
-        [TestCase("checked", "", HtmlVersion.Html4, "")]
-        public void RenderAttributeNameValuePair_BooleanAttribute_WritesCorrectAttributes(string name, string value, HtmlVersion htmlVersion, string expectedOutput)
+        [TestCase("checked", "true", XmlVersion.XHtml, " checked=\"checked\"")]
+        [TestCase("checked", "TRUE", XmlVersion.XHtml, " checked=\"checked\"")]
+        [TestCase("checked", "", XmlVersion.XHtml, "")]
+        [TestCase("checked", "false", XmlVersion.XHtml, "")]
+        [TestCase("checked", "FALSE", XmlVersion.XHtml, "")]
+        [TestCase("checked", "true", XmlVersion.Html5, " checked")]
+        [TestCase("checked", "", XmlVersion.Html5, "")]
+        [TestCase("checked", "true", XmlVersion.Html4, " checked")]
+        [TestCase("checked", "", XmlVersion.Html4, "")]
+        public void RenderAttributeNameValuePair_BooleanAttribute_WritesCorrectAttributes(string name, string value, XmlVersion xmlVersion, string expectedOutput)
         {
             var template = new DummyTemplate();
-            template.SetHtmlVersion(htmlVersion);
+            template.SetHtmlVersion(xmlVersion);
             string result = template.RenderAttributeNameValuePair(name, value, '\"');
 
             Assert.That(result, Is.EqualTo(expectedOutput));
@@ -99,13 +99,13 @@ namespace NHaml.Tests.TemplateBase
         #region AppendSelfClosingTagSuffix
 
         [Test]
-        [TestCase(HtmlVersion.Html4, " />")]
-        [TestCase(HtmlVersion.XHtml, " />")]
-        [TestCase(HtmlVersion.Html5, " />")]
-        public void AppendSelfClosingTagSuffix_VaryingHtmlVersion_AppendsCorrectOutput(HtmlVersion htmlVersion, string expectedOutput)
+        [TestCase(XmlVersion.Html4, " />")]
+        [TestCase(XmlVersion.XHtml, " />")]
+        [TestCase(XmlVersion.Html5, " />")]
+        public void AppendSelfClosingTagSuffix_VaryingHtmlVersion_AppendsCorrectOutput(XmlVersion xmlVersion, string expectedOutput)
         {
             var template = new DummyTemplate();
-            string result = template.AppendSelfClosingTagSuffix(htmlVersion);
+            string result = template.AppendSelfClosingTagSuffix(xmlVersion);
 
             Assert.That(result, Is.EqualTo(expectedOutput));
         }
